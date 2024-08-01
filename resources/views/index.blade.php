@@ -1,38 +1,40 @@
 
+@extends('CSS.app')
 
-{{-- @isset--}}
+<body> 
 
-<a>
-    @section('content')
+<div class="container">
 
+<div class="main-container-left">
+    <div class="formchecks">
 
-{{-- @if(count($tasks)) --}} 
-
-@forelse ($passengers as $pas) 
-<div>
-{{-- {{ $task->title }} --}} 
-
-<a href="{{ route('passengers.show', ['passenger' => $pas->id]) }}"
- ></a>
+    </div>
 </div>
 
+<div class="main-container-right">
 
-@empty
-<div>
-There are no tasks!
+<div class="bar-top"> Aantal personen: {{ $passengers->count() }}</div>
+<div class='container-right'>
+
+
+@foreach( $passengers as $ap) 
+
+<div id="name-person">
+
+<a href="{{ route('passengers.show', ['passenger' => $ap->___id	]) }}">
+ {{ $ap->Title }} {{ $ap->Surname }} {{ $ap->First_Names }} ({{ $ap->Age }}) 
+
+ @if ($ap->Survivor_S_or_Victim_V === 'V')
+
+  † 
+ @endif
+</a>
 </div>
-@endforelse
 
-@if ($tasks->count())
+@endforeach 
 
-<nav class="mt-4">
-
-{{ $tasks->links() }}
-
-</nav>
-@endif
-
-@endsection
-
-{{--@endif --}} 
 </div>
+</div>
+</div>
+
+</body>

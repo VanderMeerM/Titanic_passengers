@@ -4,15 +4,29 @@ use App\Models\Passenger;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+    return redirect()->route('passengers.index');
+});
 
-    $all_passengers = Passenger::all();
+Route::get('/passengers', function () {
+      return view('index', [
+         'passengers' => Passenger::all()
+        ]);
+    })->name('passengers.index');
 
-    echo Passenger::count() . '<br>';
+    Route::get('/passengers/{passenger}', function(Passenger $passenger) {
+
+        return view('show', [
+         'passenger' =>  $passenger
+       ]);
+   }) -> name('passengers.show');
+
+
+   /* echo Passenger::count() . '<br>';
 
     foreach ($all_passengers as $ap) {
        echo '<p>' . $ap['First Names']. ' ' . $ap['Surname'] . '</p>';
     }
+*/
 
     
-});
 
