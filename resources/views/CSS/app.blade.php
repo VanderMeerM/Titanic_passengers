@@ -74,12 +74,20 @@ hr {
     display: inline-block;
 }
 
-#name-person a:link {
-    padding: 10px;
+
+#name-person,
+#name-person a:link
+ {
+    padding: 5px;
     color: var(--lightgreen);
     font-weight: bolder;
     text-decoration: none;
 }
+
+#name-person a:link {
+    padding: 10px;
+}
+
 
 #name-person a:visited {
     color: lightgray;

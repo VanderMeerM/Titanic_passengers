@@ -3,17 +3,17 @@
 use App\Models\Passenger;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return redirect()->route('passengers.index');
-});
+
+//Route::get('', fn() =>to_route('passengers.index'));
 
 Route::get('/passengers', function () {
-      return view('index', [
-         'passengers' => Passenger::all()
-        ]);
-    })->name('passengers.index');
+    return view('index', [
+       'passengers' => Passenger::all()
+      ]);
+  })->name('passengers.index');
 
-    Route::get('/passengers/{passenger}', function(Passenger $passenger) {
+
+ Route::get('/passengers/{passenger}', function(Passenger $passenger) {
 
         return view('show', [
          'passenger' =>  $passenger

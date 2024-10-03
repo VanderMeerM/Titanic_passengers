@@ -63,11 +63,14 @@
 
 <div class='formname'> 
 
-<form action='' method='get'> 
-
 <strong>Zoek op een naam<p></strong>
 
-<input name='enteredName' id='input_name' placeholder='Voer naam in'>
+<form method="GET" action = "{{ route('passengers.index') }}" class="mb-4 flex items-center space-x-2">
+<input class="input" type="text" name="passenger_name" placeholder="Voer naam in"
+value="{{ request('First_Names') }}" class="input h-10">
+
+
+<!--<input name='enteredName' id='input_name' placeholder='Voer naam in'> -->
 <br>
 <br>
 
