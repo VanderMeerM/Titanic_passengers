@@ -4,9 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Passenger extends Model
 {
+
+    use HasFactory;
+
     protected $table = 'passengers';
 
     public const SURNAME = 'Surname';
@@ -18,10 +22,14 @@ class Passenger extends Model
     public const INCLASS = 'Class';
     public const SURVVIC = 'Survivor_S_or_Victim_V';
     public const EXTRINF = 'Extra_information';
-
     protected $primaryKey = '___id';
 
 
+public function scopeName(Builder $query, string $name): Builder
+{
+    return $query
+    ->where('First_Names', 'LIKE', '%' . $name . '%') 
+    ->orWhere('Surname', 'LIKE', '%' . $name . '%');
+} 
+
 }
-
-

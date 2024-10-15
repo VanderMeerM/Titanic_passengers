@@ -4,30 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Passenger;
 
 class PassengerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-       
-        return view('passenger.index');
+
+        $name = $request->input('name');
+
+        $passengers= Passenger::when(
+            $name,
+            fn($query, $name) => $query->name($name)
+        );
+     
+        return view('passenger.index', compact('passengers'));
     }
        
-       /* 
-        Route::get('/passengers', function () {
-              return view('index', [
-                 'passengers' => Passenger::all()
-                ]);
-            })->name('passengers.index');
-       */     
-
-    
-    /**
-     * Show the form for creating a new resource.
-     */
+      
     public function create()
     {
         //
@@ -44,9 +41,12 @@ class PassengerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        //
+     
+          //
+        //return view('passengers.show', ['passenger' => $passenger]);
+
     }
 
     /**
