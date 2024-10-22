@@ -77,8 +77,7 @@
 <input class="input" type="text" name="name" placeholder="Voer naam in"
 value=" {{ request('name') }}" class="input h-10">
 
-<!--<input name='enteredName' id='input_name' placeholder='Voer naam in'> -->
-<br>
+<p>
 
 <button id='btn-filter' type="submit" class='margin_left'>Zoek</button> 
 
@@ -93,10 +92,10 @@ value=" {{ request('name') }}" class="input h-10">
 <div class="main-container-right">
 
 <div class="bar-top"> Aantal personen: {{ $passengers->count() }}</div>
-<div class='container-right'>
 
+<div class="container-right">
 
-@foreach( $passengers as $passenger) 
+@foreach($passengers as $passenger) 
 
 <div id="name-person">
 

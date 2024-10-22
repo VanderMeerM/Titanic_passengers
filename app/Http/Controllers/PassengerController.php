@@ -20,8 +20,11 @@ class PassengerController extends Controller
             $name,
             fn($query, $name) => $query->name($name)
         );
+
+        $passengers = $passengers->get();
+
      
-        return view('passenger.index', compact('passengers'));
+        return view('passengers.index', ['passengers' => $passengers]);
     }
        
       
@@ -41,11 +44,9 @@ class PassengerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show(Passenger $passenger)
     {
-     
-          //
-        //return view('passengers.show', ['passenger' => $passenger]);
+               return view('passengers.show', ['passenger' => $passenger]);
 
     }
 
