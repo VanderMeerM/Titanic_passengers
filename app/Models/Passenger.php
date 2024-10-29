@@ -22,6 +22,7 @@ class Passenger extends Model
     public const INCLASS = 'Class';
     public const SURVVIC = 'Survivor_S_or_Victim_V';
     public const EXTRINF = 'Extra_information';
+    public const IMAGE = 'Image';
     protected $primaryKey = '___id';
 
 

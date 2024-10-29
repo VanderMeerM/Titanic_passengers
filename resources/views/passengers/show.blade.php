@@ -9,6 +9,13 @@
         id="name_detail">← Terug naar overzicht van passagiers</a>
 
 <p> 
+
+@if ($passenger->Image !=null)
+
+<img src="../images/{{$passenger->Image}}">
+
+@endif
+
     <div id="name_detail">
 {{ $passenger->Title }} {{ $passenger->Surname }} {{ $passenger->First_Names }} ({{ $passenger->Age }}) 
 
