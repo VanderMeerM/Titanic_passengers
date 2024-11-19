@@ -33,4 +33,11 @@ public function scopeName(Builder $query, string $name): Builder
     ->orWhere('Surname', 'LIKE', '%' . $name . '%');
 } 
 
+public function scopeAge(Builder $query, $age_selector, $age_number): Builder
+{
+    return $query
+    ->where('Age', $age_selector, $age_number); 
+} 
+
+
 }

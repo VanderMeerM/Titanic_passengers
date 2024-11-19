@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Passenger;
 
+
 class PassengerController extends Controller
 {
     /**
@@ -14,33 +15,32 @@ class PassengerController extends Controller
     public function index(Request $request)
     {
 
-        $name = $request->input('name');
+       $all_ages = Passenger::select('age')->where('age','>=','1')->distinct()->orderBy('age', 'ASC')->get();
 
-        $passengers= Passenger::when(
+       $name = $request->input('name');
+
+       $age_selector = $request->get('age_value');
+
+       $age_number = $request->get('age_number');
+
+       $passengers= Passenger::when(
             $name,
             fn($query, $name) => $query->name($name)
         );
 
+        $passengers= Passenger::when(
+            $age_selector,
+            fn($query, $age_selector, $age_number) => $query->age('Age', $age_selector, $age_number)
+        );
+
+
+      
         $passengers = $passengers->get();
 
      
-        return view('passengers.index', ['passengers' => $passengers]);
+        return view('passengers.index', ['passengers' => $passengers, 'all_ages' => $all_ages]);
     }
        
-      
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      */
@@ -50,14 +50,7 @@ class PassengerController extends Controller
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
+  
     /**
      * Update the specified resource in storage.
      */
@@ -66,11 +59,4 @@ class PassengerController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
