@@ -46,10 +46,24 @@
 <strong>Geslacht<br></strong>
 
 <div>
-<input checked name="Male" type="checkbox"/>Man
-</div>
+
+@php
+
+$genders = ["Male", "Female"];
+$boarding_places = ["Belfast", "Cherbourg", "Queenstown", "Southampton"];
+$classes = [1,2,3];
+$statuses = ["Overleefd", "Omgekomen"];
+
+@endphp
+
+@foreach ($genders as $gender) 
+
 <div>
-<input checked name="Female" type="checkbox"/>Vrouw
+  <input checked name= {{ $gender }} type="checkbox"/> {{ $gender }}
+</div>
+
+@endforeach
+
 </div>
 
 </form>
@@ -57,18 +71,15 @@
 <form>
 @csrf
 <strong>Aan boord gegaan in<br></strong>
+
+@foreach ($boarding_places as $bplace) 
+
 <div>
-<input checked name="boarded[]" name="Belfast" type="checkbox"/>Belfast
+  <input checked name="boarded[]" name= {{ $bplace }} type="checkbox"/> {{ $bplace }}
 </div>
-<div>
-<input checked name="boarded[]" name="Cherbourg" type="checkbox"/>Cherbourg
-</div>
-<div>
-<input checked name="boarded[]" name="Queenstown" type="checkbox"/>Queenstown
-</div>
-<div>
-<input checked name="boarded[]" name="Southampton" type="checkbox"/>Southampton
-</div>
+
+@endforeach
+
 <br>
 </form>
 
@@ -76,15 +87,15 @@
 @csrf
 
 <strong>Klasse<br></strong>
+
+@foreach ($classes as $class) 
+
 <div>
-<input checked name="class[]" name="1st" type="checkbox"/>1e
+  <input checked name="class[]" name= {{ $class }} type="checkbox"/>{{ $class }}e
 </div>
-<div>
-<input checked name="class[]" name="2nd" type="checkbox"/>2e
-</div>
-<div>
-<input checked name="class[]" name="3rd" type="checkbox"/>3e
-</div>
+
+@endforeach
+
  <br>
 
  </form>
@@ -93,12 +104,15 @@
  @csrf
 
 <strong>Overleefd / omgekomen<br></strong>
+
+@foreach ($statuses as $status) 
+
 <div>
-<input checked name="survvict[]" name="S" type="checkbox"/>Overleefd
+  <input checked name="survvict[]" name= {{ $status }} type="checkbox"/>{{ $status }}
 </div>
-<div>
-<input checked name="survvict[]" name="V" type="checkbox"/>Omgekomen
-</div>
+
+@endforeach
+
 <br>
 
 </form>
