@@ -26,12 +26,10 @@
 
 </p>
 
-<p>
-Voer mee in klasse: {{$passenger->Class}}
+Voer mee in {{ $passenger->Class[0] }}e klasse. 
 <br>
 Opgestapt in: {{$passenger->Boarded}}
-</p>
-
+<p>
 @empty(! $passenger->Extra_information)
 
 <i>---- <br>

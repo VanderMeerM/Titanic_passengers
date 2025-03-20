@@ -18,7 +18,7 @@ class PassengerController extends Controller
        $all_ages = Passenger::select('age')->where('age','>=','1')->distinct()->orderBy('age', 'ASC')->get();
 
        $name = $request->input('name');
-
+      
        $age_selector = $request->get('age_value');
 
        $age_number = $request->get('age_number');
@@ -28,12 +28,13 @@ class PassengerController extends Controller
             fn($query, $name) => $query->name($name)
         );
 
+        /*
         $passengers= Passenger::when(
             $age_selector,
             fn($query, $age_selector, $age_number) => $query->age('Age', $age_selector, $age_number)
         );
 
-
+*/
       
         $passengers = $passengers->get();
 
@@ -59,4 +60,12 @@ class PassengerController extends Controller
         //
     }
 
+    public function store(Request $request)
+    {
+        $request->validate([
+            'gender' => 'required'
+        ]);
+    }
+
 }
+

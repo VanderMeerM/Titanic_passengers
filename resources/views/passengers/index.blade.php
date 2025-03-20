@@ -47,19 +47,11 @@
 
 <div>
 
-@php
 
-$genders = ["Male", "Female"];
-$boarding_places = ["Belfast", "Cherbourg", "Queenstown", "Southampton"];
-$classes = [1,2,3];
-$statuses = ["Overleefd", "Omgekomen"];
-
-@endphp
-
-@foreach ($genders as $gender) 
+@foreach ( \App\Models\Passenger::$genders as $gender) 
 
 <div>
-  <input checked name= {{ $gender }} type="checkbox"/> {{ $gender }}
+  <input checked value= " {{ request('filter') }} " name= "{{ $gender }} " type="checkbox"/> {{ $gender }}
 </div>
 
 @endforeach
@@ -72,10 +64,10 @@ $statuses = ["Overleefd", "Omgekomen"];
 @csrf
 <strong>Aan boord gegaan in<br></strong>
 
-@foreach ($boarding_places as $bplace) 
+@foreach (\App\Models\Passenger::$boarding_places as $bplace) 
 
 <div>
-  <input checked name="boarded[]" name= {{ $bplace }} type="checkbox"/> {{ $bplace }}
+  <input checked value= " {{ request('filter') }} " name="boarded[]" name= {{ $bplace }} type="checkbox"/> {{ $bplace }}
 </div>
 
 @endforeach
@@ -88,10 +80,10 @@ $statuses = ["Overleefd", "Omgekomen"];
 
 <strong>Klasse<br></strong>
 
-@foreach ($classes as $class) 
+@foreach (\App\Models\Passenger::$classes as $class) 
 
 <div>
-  <input checked name="class[]" name= {{ $class }} type="checkbox"/>{{ $class }}e
+  <input checked value= " {{ request('filter') }} " name="class[]" name= {{ $class }} type="checkbox"/>{{ $class }}e
 </div>
 
 @endforeach
@@ -105,10 +97,10 @@ $statuses = ["Overleefd", "Omgekomen"];
 
 <strong>Overleefd / omgekomen<br></strong>
 
-@foreach ($statuses as $status) 
+@foreach (\App\Models\Passenger::$statuses as $status) 
 
 <div>
-  <input checked name="survvict[]" name= {{ $status }} type="checkbox"/>{{ $status }}
+  <input checked value= " {{ request('filter') }} " name="survvict[]" name= {{ $status }} type="checkbox"/>{{ $status }}
 </div>
 
 @endforeach
@@ -121,7 +113,7 @@ $statuses = ["Overleefd", "Omgekomen"];
 
 </form>
 
-<button id='btn-filter_red' onclick ="{{ route('passengers.index') }}" name="reset">Reset</button>
+<button id='btn-filter_red' onclick= "window.location.href = '{{ route('passengers.index') }}'" name="reset">Reset</button>
 
 <div class='formname'> 
 
@@ -130,6 +122,7 @@ $statuses = ["Overleefd", "Omgekomen"];
 <form method="GET" action = "{{ route('passengers.index') }}" class="mb-4 flex items-center space-x-2">
 @csrf
 
+<input type="hidden" name="filter" value=" {{ request('filter') }}" />
 <input class="input" type="text" name="name" placeholder="Voer naam in"
 value=" {{ request('name') }}" class="input h-10">
 

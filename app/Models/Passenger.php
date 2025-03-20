@@ -39,5 +39,12 @@ public function scopeAge(Builder $query, $age_selector, $age_number): Builder
     ->where('Age', $age_selector, $age_number); 
 } 
 
+public static array $genders = ["Male", "Female"];
+public static array $boarding_places = ["Belfast", "Cherbourg", "Queenstown", "Southampton"];
+public static array $classes = [1,2,3];
+public static array $statuses = ["Overleefd", "Omgekomen"];
 
 }
+
+
+
