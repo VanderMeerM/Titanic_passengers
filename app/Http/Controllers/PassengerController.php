@@ -18,30 +18,54 @@ class PassengerController extends Controller
        $all_ages = Passenger::select('age')->where('age','>=','1')->distinct()->orderBy('age', 'ASC')->get();
 
        $name = $request->input('name');
-      
-       $age_selector = $request->get('age_value');
 
+       $gender = $request->get('gender');
+       $age_value = $request->get('age_value');
        $age_number = $request->get('age_number');
+       $boarded = $request->get('boarded');
+       $class = $request->get('class');
+       $survived = $request->get('survvict');
+       
 
        $passengers= Passenger::when(
-            $name,
+            $name, 
             fn($query, $name) => $query->name($name)
         );
-
-        /*
+        
         $passengers= Passenger::when(
-            $age_selector,
-            fn($query, $age_selector, $age_number) => $query->age('Age', $age_selector, $age_number)
+            $age_number, 
+            fn($query, $age_number) => $query->age($age_number)
         );
 
-*/
-      
+        $passengers= Passenger::when(
+            $gender, 
+            fn($query, $gender) => $query->gender($gender)
+        );
+
+           
+        $passengers= Passenger::when(
+            $boarded, 
+            fn($query, $boarded) => $query->boarded($boarded)
+        );
+
+        $passengers= Passenger::when(
+            $class, 
+            fn($query, $class) => $query->class($class)
+        );
+
+        $passengers= Passenger::when(
+            $survived, 
+            fn($query, $survived) => $query->survived($survived)
+        );
+        
+
         $passengers = $passengers->get();
 
-     
+            
         return view('passengers.index', ['passengers' => $passengers, 'all_ages' => $all_ages]);
     }
-       
+
+        
     /**
      * Display the specified resource.
      */

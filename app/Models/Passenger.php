@@ -26,23 +26,50 @@ class Passenger extends Model
     protected $primaryKey = '___id';
 
 
-public function scopeName(Builder $query, string $name): Builder
+public function scopeName(Builder $query, string $name ): Builder
 {
     return $query
     ->where('First_Names', 'LIKE', '%' . $name . '%') 
     ->orWhere('Surname', 'LIKE', '%' . $name . '%');
 } 
 
-public function scopeAge(Builder $query, $age_selector, $age_number): Builder
+public function scopeAge(Builder $query, $age_number ): Builder
+{
+
+    return $query
+    ->where('Age', '>', $age_number);
+} 
+
+public function scopeGender(Builder $query, array $gender ): Builder
 {
     return $query
-    ->where('Age', $age_selector, $age_number); 
+    ->whereIn('Gender', $gender);
 } 
+
+public function scopeBoarded(Builder $query, array $boarded ): Builder
+{
+    return $query
+    ->whereIn('Boarded', $boarded);
+} 
+
+public function scopeClass(Builder $query, array $class ): Builder
+{
+    return $query
+    ->whereIn('Class', $class);
+} 
+
+public function scopeSurvived(Builder $query, array $survived ): Builder
+{
+    return $query
+    ->whereIn('Survivor_S_or_Victim_V', $survived);
+} 
+
 
 public static array $genders = ["Male", "Female"];
 public static array $boarding_places = ["Belfast", "Cherbourg", "Queenstown", "Southampton"];
-public static array $classes = [1,2,3];
-public static array $statuses = ["Overleefd", "Omgekomen"];
+public static array $classes = ['1st','2nd','3rd'];
+public static array $statuses = ["S", "V"];
+public static array $status_labels = ["Overleefd", "Omgekomen"];
 
 }
 

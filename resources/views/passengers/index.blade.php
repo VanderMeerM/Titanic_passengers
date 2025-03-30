@@ -11,9 +11,10 @@
 
 <br>
 
-<form action= {{ route('passengers.index') }} id='formCheckboxes' method= 'GET'>
+<form action= {{ route('passengers.index') }} method= 'get'> <!-- action = {{ route('passengers.index') }} --> 
  @csrf
 
+ <div>
 <strong>Leeftijd<br></strong> 
 <br>
 
@@ -34,80 +35,66 @@
 @endforeach
 
  </select>
-  <br>
-  <br>
 
-
-
-      
-<form>
-@csrf
-
+ </div>
+ <br>
+     
+<div>
 <strong>Geslacht<br></strong>
 
-<div>
-
-
-@foreach ( \App\Models\Passenger::$genders as $gender) 
+@foreach (\App\Models\Passenger::$genders as $gender) 
 
 <div>
-  <input checked value= " {{ request('filter') }} " name= "{{ $gender }} " type="checkbox"/> {{ $gender }}
+  <input checked value= {{  $gender }} name= "gender[]" type="checkbox"/> {{ $gender }}
 </div>
 
 @endforeach
 
 </div>
 
-</form>
-
-<form>
-@csrf
+<div>
 <strong>Aan boord gegaan in<br></strong>
 
 @foreach (\App\Models\Passenger::$boarding_places as $bplace) 
 
 <div>
-  <input checked value= " {{ request('filter') }} " name="boarded[]" name= {{ $bplace }} type="checkbox"/> {{ $bplace }}
+  <input checked value= {{ $bplace }} name="boarded[]" type="checkbox"/> {{ $bplace }}
 </div>
 
 @endforeach
 
+</div>
 <br>
-</form>
 
-<form>
-@csrf
-
+<div>
 <strong>Klasse<br></strong>
 
 @foreach (\App\Models\Passenger::$classes as $class) 
 
 <div>
-  <input checked value= " {{ request('filter') }} " name="class[]" name= {{ $class }} type="checkbox"/>{{ $class }}e
+  <input checked value= {{ $class }} name="class[]" name= {{ $class }} type="checkbox"/>{{ $class[0] }}e
 </div>
 
 @endforeach
 
  <br>
+</div>
 
- </form>
-
- <form>
- @csrf
+<div>
 
 <strong>Overleefd / omgekomen<br></strong>
 
 @foreach (\App\Models\Passenger::$statuses as $status) 
 
 <div>
-  <input checked value= " {{ request('filter') }} " name="survvict[]" name= {{ $status }} type="checkbox"/>{{ $status }}
+  <input checked value= {{ $status }} name="survvict[]" type="checkbox"/>{{ $status }}
 </div>
 
 @endforeach
 
 <br>
 
-</form>
+</div>
 
 <button class='inline' type="submit" id='btn-filter' name="apply">Pas toe</button>
 

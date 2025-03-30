@@ -11,6 +11,7 @@ Route::get('/', function () {
 Route::resource('passengers', PassengerController::class)
 ->only(['index', 'show']);
 
+
 /*
 
  Route::get('/passengers/{passenger}', function(Passenger $passenger) {
