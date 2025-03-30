@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Passenger;
 
-
 class PassengerController extends Controller
 {
     /**
@@ -19,9 +18,9 @@ class PassengerController extends Controller
 
        $name = $request->input('name');
 
-       $gender = $request->get('gender');
        $age_value = $request->get('age_value');
        $age_number = $request->get('age_number');
+       $gender = $request->get('gender');
        $boarded = $request->get('boarded');
        $class = $request->get('class');
        $survived = $request->get('survvict');
@@ -29,19 +28,41 @@ class PassengerController extends Controller
 
        $passengers= Passenger::when(
             $name, 
-            fn($query, $name) => $query->name($name)
-        );
+            fn($query, $name) => $query->name($name));
+
         
+            if ($gender)  
+            {
+            $passengers
+            ->whereIn('Gender', $gender)
+            ->where('Age', $age_value, $age_number)
+            ->whereIn('Boarded', $boarded)
+            ->whereIn('Class', $class)
+            ->whereIn('Survivor_S_or_Victim_V', $survived);
+            }
+
+          
+        
+        /*
         $passengers= Passenger::when(
             $age_number, 
             fn($query, $age_number) => $query->age($age_number)
         );
-
+        
+       
+    
         $passengers= Passenger::when(
-            $gender, 
+            $gender,
             fn($query, $gender) => $query->gender($gender)
+            );
+            Passenger::when (
+                $boarded, 
+            fn($query, $boarded) => $query->boarded($boarded),
+            fn($query, $class) => $query->class($class),
+            fn($query, $survived) => $query->survived($survived)
         );
 
+        /*
            
         $passengers= Passenger::when(
             $boarded, 
@@ -57,7 +78,7 @@ class PassengerController extends Controller
             $survived, 
             fn($query, $survived) => $query->survived($survived)
         );
-        
+        */
 
         $passengers = $passengers->get();
 
