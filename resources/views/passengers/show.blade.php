@@ -17,25 +17,21 @@
 @endif
 
     <div id="name_detail">
-{{ $passenger->Title }} {{ $passenger->Surname }} {{ $passenger->First_Names }} ({{ $passenger->Age }}) 
+{{ $passenger->Name }} ({{ $passenger->Age }}) 
 
-@if ($passenger->Survivor_S_or_Victim_V === 'V')
+@if ($passenger->Survived === 'Lost')
 
 † 
 @endif
 
 </p>
 
-Voer mee in {{ $passenger->Class[0] }}e klasse. 
+Voer mee in {{ $passenger->Class }}e klasse. 
 <br>
-Opgestapt in: {{$passenger->Boarded}}
+Opgestapt in: {{$passenger->Embarked}}
+<br>
+Nationaliteit: {{  $passenger->Nationality }}
 <p>
-@empty(! $passenger->Extra_information)
-
-<i>---- <br>
-{{ $passenger->Extra_information }}</i> 
-
-@endempty
 
 </div>
 </div>

@@ -28,9 +28,9 @@
 <select id='age_number' name='age_number'>
   <option selected disabled> Kies leeftijd</option>
 
-@foreach ($all_ages as $age=>$num)
+@foreach ($all_ages as $age)
 
-<option value={{$num->age}}>{{$num->age}}</option>
+<option value={{$age['Age']}}>{{$age['Age']}}</option>
 
 @endforeach
 
@@ -45,7 +45,7 @@
 @foreach (\App\Models\Passenger::$genders as $gender) 
 
 <div>
-  <input checked value= {{  $gender }} name= "gender[]" type="checkbox"/> {{ $gender }}
+  <input checked value= {{  $gender }} name= "gender[]" type="checkbox"/> {{ $gender === 'Male' ? 'Man' : 'Vrouw' }}
 </div>
 
 @endforeach
@@ -55,7 +55,7 @@
 <div>
 <strong>Aan boord gegaan in<br></strong>
 
-@foreach (\App\Models\Passenger::$boarding_places as $bplace) 
+@foreach (\App\Models\Passenger::$embarked as $bplace) 
 
 <div>
   <input checked value= {{ $bplace }} name="boarded[]" type="checkbox"/> {{ $bplace }}
@@ -69,10 +69,15 @@
 <div>
 <strong>Klasse<br></strong>
 
-@foreach (\App\Models\Passenger::$classes as $class) 
+@php 
+$classes = \App\Models\Passenger::select('Class')->distinct()-> orderBy('Class', 'ASC')->get(); 
+@endphp
+
+
+@foreach ($classes as $class)
 
 <div>
-  <input checked value= {{ $class }} name="class[]" name= {{ $class }} type="checkbox"/>{{ $class[0] }}e
+  <input checked value= {{  $class }} name="class[]" name= {{ $class }} type="checkbox"/>{{ $class['Class'] }}
 </div>
 
 @endforeach
@@ -87,7 +92,7 @@
 @foreach (\App\Models\Passenger::$statuses as $status) 
 
 <div>
-  <input checked value= {{ $status }} name="survvict[]" type="checkbox"/>{{ $status }}
+  <input checked value= {{ $status }} name="survvict[]" type="checkbox"/>{{ $status === 'Saved' ? 'Overleefd' : 'Omgekomen' }}
 </div>
 
 @endforeach
@@ -109,7 +114,6 @@
 <form method="GET" action = "{{ route('passengers.index') }}" class="mb-4 flex items-center space-x-2">
 @csrf
 
-<input type="hidden" name="filter" value=" {{ request('filter') }}" />
 <input class="input" type="text" name="name" placeholder="Voer naam in"
 value=" {{ request('name') }}" class="input h-10">
 
@@ -135,10 +139,10 @@ value=" {{ request('name') }}" class="input h-10">
 
 <div id="name-person">
 
-<a href="{{ route('passengers.show', ['passenger' => $passenger->___id	]) }}">
- {{ $passenger->Title }} {{ $passenger->Surname }} {{ $passenger->First_Names }} ({{ $passenger->Age }}) 
+<a href="{{ route('passengers.show', ['passenger' => $passenger->Id	]) }}">
+ {{ $passenger->Name }} ({{ $passenger->Age }}) 
 
- @if ($passenger->Survivor_S_or_Victim_V === 'V')
+ @if ($passenger->Survived === 'Lost')
 
   † 
  @endif

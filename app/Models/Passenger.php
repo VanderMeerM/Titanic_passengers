@@ -13,26 +13,30 @@ class Passenger extends Model
 
     protected $table = 'passengers';
 
-    public const SURNAME = 'Surname';
-    public const FIRSTNAMES = 'First_Names';
-    public const TITLE = 'Title';
+    public const NAME = 'Name';
     public const AGE = 'Age';
     public const GENDER = 'Gender';
-    public const BOARDED = 'Boarded';
-    public const INCLASS = 'Class';
-    public const SURVVIC = 'Survivor_S_or_Victim_V';
-    public const EXTRINF = 'Extra_information';
+    public const CATEGORY = 'Category';
+    public const CLASSNUM = 'Class';
+    public const EMBARKED = 'Embarked';
+    public const DISEMBARKED = 'Disembarked';
+    public const JOB = 'Job';
+    public const SURVIVED = 'Survived';
+    public const BOAT = 'Boat';
+    public const NATIONALITY = 'Nationality';
+    public const SHIP = 'Ship';
     public const IMAGE = 'Image';
-    protected $primaryKey = '___id';
+    protected $primaryKey = 'Id';
 
 
 public function scopeName(Builder $query, string $name ): Builder
 {
     return $query
-    ->where('First_Names', 'LIKE', '%' . $name . '%') 
-    ->orWhere('Surname', 'LIKE', '%' . $name . '%');
+    ->where('Name', 'LIKE', '%' . $name . '%');
+    //->orWhere('Surname', 'LIKE', '%' . $name . '%');
 } 
 
+/*
 public function scopeAge(Builder $query, $age_number ): Builder
 {
 
@@ -64,12 +68,16 @@ public function scopeSurvived(Builder $query, array $survived ): Builder
     ->whereIn('Survivor_S_or_Victim_V', $survived);
 } 
 
+*/
 
 public static array $genders = ["Male", "Female"];
-public static array $boarding_places = ["Belfast", "Cherbourg", "Queenstown", "Southampton"];
-public static array $classes = ['1st','2nd','3rd'];
-public static array $statuses = ["S", "V"];
-public static array $status_labels = ["Overleefd", "Omgekomen"];
+public static array $embarked = ["Belfast", "Cherbourg", "Queenstown", "Southampton"];
+
+//public static array $classes = ['1st Class','2nd Class','3rd Class']; 
+public static array $statuses = ['Saved', 'Lost'];
+public static array $nationality = ['American', 'English'];
+
+
 
 }
 

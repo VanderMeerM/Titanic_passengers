@@ -14,7 +14,7 @@ class PassengerController extends Controller
     public function index(Request $request)
     {
 
-       $all_ages = Passenger::select('age')->where('age','>=','1')->distinct()->orderBy('age', 'ASC')->get();
+       $all_ages = Passenger::select('Age')->where('Age','>=','1')->distinct()->orderBy('Age', 'ASC')->get();
 
        $name = $request->input('name');
 
@@ -31,17 +31,17 @@ class PassengerController extends Controller
             fn($query, $name) => $query->name($name));
 
         
-            if ($gender)  
-            {
-            $passengers
+           if($gender) {
+            $passengers = $passengers
             ->whereIn('Gender', $gender)
-            ->where('Age', $age_value, $age_number)
-            ->whereIn('Boarded', $boarded)
-            ->whereIn('Class', $class)
-            ->whereIn('Survivor_S_or_Victim_V', $survived);
-            }
+            ->when($age_value) -> where('Age',$age_value, $age_number)
+            ->whereIn('Embarked', $boarded)
+           // ->whereIn('Class', $class)
+            ->whereIn('Survived', $survived);
+            
+           }
 
-          
+        
         
         /*
         $passengers= Passenger::when(
