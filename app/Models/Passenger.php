@@ -44,42 +44,15 @@ public function scopeAge(Builder $query, $age_number ): Builder
     ->where('Age', '>', $age_number);
 } 
 
-public function scopeGender(Builder $query, array $gender ): Builder
-{
-    return $query
-    ->whereIn('Gender', $gender);
-} 
 
-public function scopeBoarded(Builder $query, array $boarded ): Builder
-{
-    return $query
-    ->whereIn('Boarded', $boarded);
-} 
 
-public function scopeClass(Builder $query, array $class ): Builder
-{
-    return $query
-    ->whereIn('Class', $class);
-} 
+public static array $genders = ['Male', 'Female'];
+public static array $embarked = ['Belfast', 'Cherbourg', 'Southampton', 'Queenstown']; //Passenger::select('Embarked')->distinct()->orderBy('Embarked', 'ASC')->get()->toArray(); 
 
-public function scopeSurvived(Builder $query, array $survived ): Builder
-{
-    return $query
-    ->whereIn('Survivor_S_or_Victim_V', $survived);
-} 
+public static array $statuses = ['Saved', 'Lost']; // Passenger::select('Survived')->distinct()->orderBy('Survived', 'ASC')->get()->toArray(); 
+public static array $nationality = ['English', 'American']; //Passenger::select('Nationality')->distinct()->orderBy('Nationality', 'ASC')->get()->toArray(); 
 
+public static array $classes = ['1st Class', '2nd Class', '3rd Class']; //Passenger::select('Class')->distinct()->orderBy('Class', 'ASC')->get()->toArray(); 
 */
 
-public static array $genders = ["Male", "Female"];
-public static array $embarked = ["Belfast", "Cherbourg", "Queenstown", "Southampton"];
-
-//public static array $classes = ['1st Class','2nd Class','3rd Class']; 
-public static array $statuses = ['Saved', 'Lost'];
-public static array $nationality = ['American', 'English'];
-
-
-
 }
-
-
-

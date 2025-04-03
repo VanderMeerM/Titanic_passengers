@@ -6,10 +6,27 @@
     --lightblue: rgb(171, 201, 226);
 }
 
+
 body {
     background-image: url("../titanic-sinking-ship-scene.jpg");
-    background-repeat: no-repeat;
-   /* background-color: black; */
+    
+}
+
+.buttonbar {
+    width: 100%;
+    text-align: center;
+    top: 10px;
+    height: 20px;
+    position: fixed;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.buttonbar a {
+padding: 10px;
+margin: 20px;
+background-color: whitesmoke;
+color: black;
+text-decoration: none;
 }
 
 .container {
@@ -37,12 +54,13 @@ body {
 
 .main-container-right {
      flex: 80%;    
+     margin-top: 30px;
 }
 
 .bar-top {
     flex: 100%;
     height: 40px;
-   color: yellow;
+    color: yellow;
     padding-left: 1%;
 }
 
@@ -54,9 +72,9 @@ body {
 
 .formname {
     position: fixed;
-    top: 20px;
+    top: 0px;
     background-color: var(--lightblue);
-    width: 184px;
+    width: 200px;
 }
 
 .formchecks {
@@ -64,6 +82,13 @@ body {
     top: 150px;
     background-color:  var(--lightblue);
   
+}
+
+.scroll-box {
+  max-width:200px;
+  height:  calc(100vh - 200px);
+  overflow: auto;
+  scrollbar-width: thick;
 }
 
 hr {
@@ -123,6 +148,16 @@ hr {
     background-color: red;
 }
 
+
+#btn_login {
+    position:absolute;
+    right: 0;
+}
+
+#btn_login a img {
+    width: 7%;
+    height: auto;
+} 
 
 @media (max-width: 1045px) {
     .container-right {

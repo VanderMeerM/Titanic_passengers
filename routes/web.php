@@ -7,9 +7,16 @@ Route::get('/', function () {
  return redirect()->route('passengers.index');
 });
 
+Route::get('/all', function() {
+  return redirect()->route('passengers.index');
+});
+
+ Route::get('/crew', function () {
+  return redirect()->route('passengers.index');
+ });
 
 Route::resource('passengers', PassengerController::class)
-->only(['index', 'show']);
+->only(['index', 'show', 'all']);
 
 
 /*

@@ -16,6 +16,13 @@ class PassengerController extends Controller
 
        $all_ages = Passenger::select('Age')->where('Age','>=','1')->distinct()->orderBy('Age', 'ASC')->get();
 
+       $genders = Passenger::select('Gender')->distinct()->orderBy('Gender', 'ASC')->get();
+       $embarked = Passenger::select('Embarked')->whereNot('Embarked', '')->distinct()->orderBy('Embarked', 'ASC')->get();
+       $classes = Passenger::select('Class')->whereNot('Class', '')->distinct()->orderBy('Class', 'ASC')->get(); 
+       $statuses = Passenger::select('Survived')->whereNot('Survived', '')->distinct()->orderBy('Survived', 'ASC')->get(); 
+       $nationalities = Passenger::select('Nationality')->whereNot('Nationality', '')->distinct()->orderBy('Nationality', 'ASC')->get(); 
+
+
        $name = $request->input('name');
 
        $age_value = $request->get('age_value');
@@ -23,8 +30,11 @@ class PassengerController extends Controller
        $gender = $request->get('gender');
        $boarded = $request->get('boarded');
        $class = $request->get('class');
+       $nationality = $request->get('nationality');
        $survived = $request->get('survvict');
-       
+
+       $current_url = explode('/', url()->current())[sizeof(explode('/', url()->current()))-1];
+
 
        $passengers= Passenger::when(
             $name, 
@@ -36,7 +46,8 @@ class PassengerController extends Controller
             ->whereIn('Gender', $gender)
             ->when($age_value) -> where('Age',$age_value, $age_number)
             ->whereIn('Embarked', $boarded)
-           // ->whereIn('Class', $class)
+            ->whereIn('Class', $class)
+            ->whereIn('Nationality', $nationality)
             ->whereIn('Survived', $survived);
             
            }
@@ -80,19 +91,44 @@ class PassengerController extends Controller
         );
         */
 
-        $passengers = $passengers->get();
-
+        /*
+        if ($current_url === 'passengers') {
+            $passengers = $passengers->where('Category', '=', 'Passenger')->get();
+        }
+        elseif ($current_url === 'crew') {
+            $passengers = $passengers->where('Category', '=', 'Crew')->get();
+        }
+        else {
+             $passengers = $passengers->get();
+        }
+       */ 
+      
+       $passengers = $passengers->get();
             
-        return view('passengers.index', ['passengers' => $passengers, 'all_ages' => $all_ages]);
+        return view('passengers.index', [
+        'passengers' => $passengers, 
+        'all_ages' => $all_ages,
+        'genders' => $genders,
+        'embarked' => $embarked,
+        'statuses' => $statuses,
+        'classes' => $classes, 
+        'nationalities' => $nationalities,
+
+        'current_url' => $current_url
+        
+    ]);
     }
 
         
     /**
      * Display the specified resource.
      */
-    public function show(Passenger $passenger)
+    public function show(Passenger $passenger, PassengerController $classes)
     {
-               return view('passengers.show', ['passenger' => $passenger]);
+               return view('passengers.show', 
+               ['passenger' => $passenger, 
+               'classes' => Passenger::select('Class')->whereNot('Class', '')->distinct()->orderBy('Class', 'ASC')->get()
+                ]);
 
     }
 
