@@ -8,6 +8,8 @@ use App\Models\Passenger;
 
 class PassengerController extends Controller
 {
+    
+    
     /**
      * Display a listing of the resource.
      */
@@ -22,7 +24,7 @@ class PassengerController extends Controller
        $statuses = Passenger::select('Survived')->whereNot('Survived', '')->distinct()->orderBy('Survived', 'ASC')->get(); 
        $nationalities = Passenger::select('Nationality')->whereNot('Nationality', '')->distinct()->orderBy('Nationality', 'ASC')->get(); 
 
-
+       
        $name = $request->input('name');
 
        $age_value = $request->get('age_value');
@@ -32,9 +34,6 @@ class PassengerController extends Controller
        $class = $request->get('class');
        $nationality = $request->get('nationality');
        $survived = $request->get('survvict');
-
-       $current_url = explode('/', url()->current())[sizeof(explode('/', url()->current()))-1];
-
 
        $passengers= Passenger::when(
             $name, 
@@ -51,61 +50,10 @@ class PassengerController extends Controller
             ->whereIn('Survived', $survived);
             
            }
-
-        
-        
-        /*
-        $passengers= Passenger::when(
-            $age_number, 
-            fn($query, $age_number) => $query->age($age_number)
-        );
-        
-       
     
-        $passengers= Passenger::when(
-            $gender,
-            fn($query, $gender) => $query->gender($gender)
-            );
-            Passenger::when (
-                $boarded, 
-            fn($query, $boarded) => $query->boarded($boarded),
-            fn($query, $class) => $query->class($class),
-            fn($query, $survived) => $query->survived($survived)
-        );
-
-        /*
-           
-        $passengers= Passenger::when(
-            $boarded, 
-            fn($query, $boarded) => $query->boarded($boarded)
-        );
-
-        $passengers= Passenger::when(
-            $class, 
-            fn($query, $class) => $query->class($class)
-        );
-
-        $passengers= Passenger::when(
-            $survived, 
-            fn($query, $survived) => $query->survived($survived)
-        );
-        */
-
-        /*
-        if ($current_url === 'passengers') {
-            $passengers = $passengers->where('Category', '=', 'Passenger')->get();
-        }
-        elseif ($current_url === 'crew') {
-            $passengers = $passengers->where('Category', '=', 'Crew')->get();
-        }
-        else {
-             $passengers = $passengers->get();
-        }
-       */ 
-      
        $passengers = $passengers->get();
             
-        return view('passengers.index', [
+        return view('all.index', [
         'passengers' => $passengers, 
         'all_ages' => $all_ages,
         'genders' => $genders,
@@ -113,9 +61,7 @@ class PassengerController extends Controller
         'statuses' => $statuses,
         'classes' => $classes, 
         'nationalities' => $nationalities,
-
-        'current_url' => $current_url
-        
+                
     ]);
     }
 
@@ -123,10 +69,10 @@ class PassengerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Passenger $passenger, PassengerController $classes)
+    public function show(Passenger $all)
     {
-               return view('passengers.show', 
-               ['passenger' => $passenger, 
+               return view('all.show', 
+               ['passenger' => $all, 
                'classes' => Passenger::select('Class')->whereNot('Class', '')->distinct()->orderBy('Class', 'ASC')->get()
                 ]);
 

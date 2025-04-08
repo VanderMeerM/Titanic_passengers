@@ -9,7 +9,7 @@
 
 <div class="container_detail">
 
-<a href=" {{ route('passengers.index') }}"
+<a href=" {{ route('all.index') }}"
         id="name_detail">← Terug naar overzicht van passagiers</a>
 
 <p> 
@@ -35,9 +35,13 @@ $classes_crew = array_slice($classes_crew, 6);
 
 @endif
 
-@auth
-<button> Foto uploaden </button>
-@endauth
+<form action="{{ route('uploads.store') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <input type="file" name="file_upload">
+    <button type="submit">Foto uploaden</button>
+</form>
+
+
 
     <div id="name_detail">
 {{ $passenger->Name }} ({{ $passenger->Age }}) 

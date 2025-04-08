@@ -14,7 +14,7 @@
 
 <br>
 
-<form action= {{ route('passengers.index') }} method= 'get'> <!-- action = {{ route('passengers.index') }} --> 
+<form action= {{ route('all.index') }} method= 'get'> <!-- action = {{ route('passengers.index') }} --> 
  @csrf
 
  <div>
@@ -131,7 +131,7 @@ $status_label = ['Saved' => 'Overleefd', 'Lost' => 'Omgekomen', '' => ''];
 
 </form>
 
-<button id='btn-filter_red' onclick= "window.location.href = '{{ route('passengers.index') }}'" name="reset">Reset</button>
+<button id='btn-filter_red' onclick= "window.location.href = '{{ route('all.index') }}'" name="reset">Reset</button>
 
 </div>
 
@@ -139,7 +139,7 @@ $status_label = ['Saved' => 'Overleefd', 'Lost' => 'Omgekomen', '' => ''];
 
 <strong>Zoek op een naam<p></strong>
 
-<form method="GET" action = "{{ route('passengers.index') }}" class="mb-4 flex items-center space-x-2">
+<form method="GET" action = "{{ route('all.index') }}" class="mb-4 flex items-center space-x-2">
 @csrf
 
 <input class="input" type="text" name="name" placeholder="Voer naam in"
@@ -156,13 +156,12 @@ value=" {{ request('name') }}" class="input h-10">
 
 </div>
 
-
 <div class="main-container-right">
 
 <div class="buttonbar">
 
   <a href="/all">Alle opvarenden </a>
-  <a href="/passengers">Passagiers  </a>
+<a href="/passengers">Passagiers  </a>
   <a href="/crew">Bemanning  </a>
 
 </div>
@@ -171,11 +170,12 @@ value=" {{ request('name') }}" class="input h-10">
 
 <div class="container-right">
 
+
 @foreach($passengers as $passenger) 
 
 <div id="name-person">
 
-<a href="{{ route('passengers.show', ['passenger' => $passenger->Id, 'classes'=> $classes ]) }}">
+<a href="{{ route('all.show', ['all' => $passenger->Id, 'classes'=> $classes ]) }}">
  {{ $passenger->Name }} ({{ $passenger->Age }}) 
 
  @if ($passenger->Survived === 'Lost')
