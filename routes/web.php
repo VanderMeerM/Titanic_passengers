@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\PassengerController;
 use Illuminate\Support\Facades\Route;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 Route::get('/', function () {
  return redirect()->route('all.index');
@@ -36,9 +36,7 @@ Route::resource('passengers', PassengerController::class)
 Route::resource('crew', PassengerController::class)
 ->only(['index', 'show']);
 
-Route::resource('uploads', UploadedFile::class)
-->only(['store']);
-
+Route::post('all.upload', [FileUploadController::class, 'upload'])-> name('all.upload');
 /*
 
  Route::get('/passengers/{passenger}', function(Passenger $passenger) {

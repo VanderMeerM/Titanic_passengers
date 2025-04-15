@@ -16,17 +16,17 @@ class PassengerController extends Controller
     public function index(Request $request)
     {
 
+    // Alle unieke waarden voor checkboxes uit database halen..
        $all_ages = Passenger::select('Age')->where('Age','>=','1')->distinct()->orderBy('Age', 'ASC')->get();
-
        $genders = Passenger::select('Gender')->distinct()->orderBy('Gender', 'ASC')->get();
-       $embarked = Passenger::select('Embarked')->whereNot('Embarked', '')->distinct()->orderBy('Embarked', 'ASC')->get();
-       $classes = Passenger::select('Class')->whereNot('Class', '')->distinct()->orderBy('Class', 'ASC')->get(); 
-       $statuses = Passenger::select('Survived')->whereNot('Survived', '')->distinct()->orderBy('Survived', 'ASC')->get(); 
-       $nationalities = Passenger::select('Nationality')->whereNot('Nationality', '')->distinct()->orderBy('Nationality', 'ASC')->get(); 
-
+       $embarked = Passenger::select('Embarked')->distinct()->orderBy('Embarked', 'ASC')->get();
+       $classes = Passenger::select('Class')->distinct()->orderBy('Class', 'ASC')->get(); 
+       $nationalities = Passenger::select('Nationality')->distinct()->orderBy('Nationality', 'ASC')->get(); 
+       $statuses = Passenger::select('Survived')->distinct()->orderBy('Survived', 'ASC')->get(); 
        
        $name = $request->input('name');
 
+       // Waarden aangevinkte checkboxes ophalen  
        $age_value = $request->get('age_value');
        $age_number = $request->get('age_number');
        $gender = $request->get('gender');
@@ -37,21 +37,21 @@ class PassengerController extends Controller
 
        $passengers= Passenger::when(
             $name, 
-            fn($query, $name) => $query->name($name));
+            fn($query, $name) => $query->name($name)
+        );
 
         
            if($gender) {
             $passengers = $passengers
+             ->when($age_value) -> where('Age',$age_value, $age_number)
             ->whereIn('Gender', $gender)
-            ->when($age_value) -> where('Age',$age_value, $age_number)
             ->whereIn('Embarked', $boarded)
             ->whereIn('Class', $class)
             ->whereIn('Nationality', $nationality)
             ->whereIn('Survived', $survived);
-            
            }
     
-       $passengers = $passengers->get();
+         $passengers = $passengers->get();
             
         return view('all.index', [
         'passengers' => $passengers, 
@@ -61,7 +61,13 @@ class PassengerController extends Controller
         'statuses' => $statuses,
         'classes' => $classes, 
         'nationalities' => $nationalities,
-                
+        'age_value' => $age_value, 
+        'age_number' => $age_number,
+        'gender_filtered' => $gender,
+        'class_filtered' => $class,
+        'embarked_filtered' => $boarded,
+        'nationalities_filtered' => $nationality,
+        'survived_filtered' => $survived                
     ]);
     }
 

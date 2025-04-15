@@ -35,13 +35,11 @@ $classes_crew = array_slice($classes_crew, 6);
 
 @endif
 
-<form action="{{ route('uploads.store') }}" method="POST" enctype="multipart/form-data">
+<form action=" {{ route('all.upload') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <input type="file" name="file_upload">
     <button type="submit">Foto uploaden</button>
 </form>
-
-
 
     <div id="name_detail">
 {{ $passenger->Name }} ({{ $passenger->Age }}) 

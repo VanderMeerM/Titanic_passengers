@@ -36,6 +36,13 @@ public function scopeName(Builder $query, string $name ): Builder
     //->orWhere('Surname', 'LIKE', '%' . $name . '%');
 } 
 
+public static array $status_label = ['Saved' => 'Overleefd', 'Lost' => 'Omgekomen', 'Unknown' => 'Onbekend'];
+
+public static array $gender_label = ['Female' => 'Vrouw', 'Male' => 'Man', 'Unknown' => 'Onbekend'];
+
+public static array $age_values = ['>' => 'Ouder dan', '=' => 'Exact', '<' => 'Jonger dan'];
+
+
 /*
 public function scopeAge(Builder $query, $age_number ): Builder
 {
