@@ -35,9 +35,10 @@ $classes_crew = array_slice($classes_crew, 6);
 
 @endif
 
-<form action=" {{ route('all.upload') }}" method="POST" enctype="multipart/form-data">
+<form action=" {{ route('file.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
-    <input type="file" name="file_upload">
+    <input type="file" name="file">
+    <input type="hidden" name="pass_id" value = {{  $passenger->Id }}>
     <button type="submit">Foto uploaden</button>
 </form>
 

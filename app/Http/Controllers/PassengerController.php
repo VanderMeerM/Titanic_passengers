@@ -75,7 +75,7 @@ class PassengerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Passenger $all)
+    public static function show(Passenger $all)
     {
                return view('all.show', 
                ['passenger' => $all, 
@@ -88,16 +88,14 @@ class PassengerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+       //
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'gender' => 'required'
-        ]);
+      //
     }
 
 }

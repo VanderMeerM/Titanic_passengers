@@ -36,7 +36,8 @@ Route::resource('passengers', PassengerController::class)
 Route::resource('crew', PassengerController::class)
 ->only(['index', 'show']);
 
-Route::post('all.upload', [FileUploadController::class, 'upload'])-> name('all.upload');
+//Route::get('upload', [FileUploadController::class, 'index']);
+Route::post('upload', [FileUploadController::class, 'store'])->name('file.store');
 /*
 
  Route::get('/passengers/{passenger}', function(Passenger $passenger) {
