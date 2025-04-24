@@ -159,6 +159,11 @@ hr {
     height: auto;
 } 
 
+.img_pass {
+    max-width: 250px;
+    height: auto;
+}
+
 @media (max-width: 1045px) {
     .container-right {
         column-count: 4;

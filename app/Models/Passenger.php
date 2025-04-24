@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 
 class Passenger extends Model
 {
@@ -36,12 +37,21 @@ public function scopeName(Builder $query, string $name ): Builder
     //->orWhere('Surname', 'LIKE', '%' . $name . '%');
 } 
 
+public static function get_url(Request $request) {
+    $ctg = $request->path();
+    $ctg === 'passengers' ? $ctg = ucfirst(substr($ctg, 0, strlen($ctg)-1)) :   
+    ($ctg === 'all' ? $ctg = 'Passenger' : null);
+    return $ctg;
+    
+}
 public static array $status_label = ['Saved' => 'Overleefd', 'Lost' => 'Omgekomen', 'Unknown' => 'Onbekend'];
 
 public static array $gender_label = ['Female' => 'Vrouw', 'Male' => 'Man', 'Unknown' => 'Onbekend'];
 
 public static array $age_values = ['>' => 'Ouder dan', '=' => 'Exact', '<' => 'Jonger dan'];
-
+protected $fillable = [
+    'Image'
+];
 
 /*
 public function scopeAge(Builder $query, $age_number ): Builder

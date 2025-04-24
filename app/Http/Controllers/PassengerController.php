@@ -16,13 +16,16 @@ class PassengerController extends Controller
     public function index(Request $request)
     {
 
+      $current_url = Passenger::get_url($request);
+      $current_url_2 = 'Crew';     
+
     // Alle unieke waarden voor checkboxes uit database halen..
-       $all_ages = Passenger::select('Age')->where('Age','>=','1')->distinct()->orderBy('Age', 'ASC')->get();
-       $genders = Passenger::select('Gender')->distinct()->orderBy('Gender', 'ASC')->get();
-       $embarked = Passenger::select('Embarked')->distinct()->orderBy('Embarked', 'ASC')->get();
-       $classes = Passenger::select('Class')->distinct()->orderBy('Class', 'ASC')->get(); 
-       $nationalities = Passenger::select('Nationality')->distinct()->orderBy('Nationality', 'ASC')->get(); 
-       $statuses = Passenger::select('Survived')->distinct()->orderBy('Survived', 'ASC')->get(); 
+       $all_ages = Passenger::select('Age')->where('Category', $current_url)->where('Age','>=','1')->distinct()->orderBy('Age', 'ASC')->get();
+       $genders = Passenger::select('Gender')->where('Category', $current_url)->distinct()->orderBy('Gender', 'ASC')->get();
+       $embarked = Passenger::select('Embarked')->where('Category', $current_url)->distinct()->orderBy('Embarked', 'ASC')->get();
+       $classes = Passenger::select('Class')->orWhere(['Category'=>$current_url], ['Category' => $current_url_2])->distinct()->orderBy('Class', 'ASC')->get(); 
+       $nationalities = Passenger::select('Nationality')->where('Category', $current_url)->distinct()->orderBy('Nationality', 'ASC')->get(); 
+       $statuses = Passenger::select('Survived')->where('Category', $current_url)->distinct()->orderBy('Survived', 'ASC')->get(); 
        
        $name = $request->input('name');
 
@@ -51,7 +54,7 @@ class PassengerController extends Controller
             ->whereIn('Survived', $survived);
            }
     
-         $passengers = $passengers->get();
+         $passengers = $passengers->where('Category', $current_url)->get();
             
         return view('all.index', [
         'passengers' => $passengers, 
@@ -67,7 +70,9 @@ class PassengerController extends Controller
         'class_filtered' => $class,
         'embarked_filtered' => $boarded,
         'nationalities_filtered' => $nationality,
-        'survived_filtered' => $survived                
+        'survived_filtered' => $survived, 
+        'curr_url' => $current_url,   
+        'curr_url_2' => $current_url_2        
     ]);
     }
 
@@ -88,9 +93,9 @@ class PassengerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-       //
+      
     }
 
     public function store(Request $request)

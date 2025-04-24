@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\PassengerController;
+use Illuminate\Support\Facades\DB;
+
 use App\Models\Passenger;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -22,15 +24,16 @@ class FileUploadController extends Controller
 
        $passname = Passenger::find($request->input('pass_id'))->Name.'.'.$request->file->extension();
          
-        $request->file->move(public_path('images'), $passname);
-       
+       $request->file->move(public_path('images'), $passname);
+          
+       DB::table('passengers')->where('Id', $request->input('pass_id'))->update(['Image' => $passname]);
         /*  
            Write Code Here for
             Store $fileName name in DATABASE from HERE 
        
-        */ 
-        return back();
-    
+     */    
+      return back();
+      
     }
     /*
     public function upload(Request $request)

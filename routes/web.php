@@ -28,13 +28,13 @@ Route::get('/passengers', function () {
  });
 
  Route::resource('all', PassengerController::class)
-->only(['index', 'show']);
+->only(['index', 'show', 'update']);
 
 Route::resource('passengers', PassengerController::class)
-->only(['index', 'show']);
+->only(['index', 'show', 'update']);
 
 Route::resource('crew', PassengerController::class)
-->only(['index', 'show']);
+->only(['index', 'show', 'update']);
 
 //Route::get('upload', [FileUploadController::class, 'index']);
 Route::post('upload', [FileUploadController::class, 'store'])->name('file.store');

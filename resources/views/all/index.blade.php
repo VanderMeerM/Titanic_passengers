@@ -14,6 +14,8 @@
 
 <br>
 
+<div> {{ $curr_url }}</div>
+
 <form action= {{ route('all.index') }} method= 'get'> <!-- action = {{ route('passengers.index') }} --> 
  @csrf
 

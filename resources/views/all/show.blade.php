@@ -31,7 +31,7 @@ $classes_crew = array_slice($classes_crew, 6);
 
 @if ($passenger->Image !=null)
 
-<img src="../images/{{$passenger->Image}}">
+<img class="img_pass" src="../images/{{$passenger->Image}}">
 
 @endif
 
