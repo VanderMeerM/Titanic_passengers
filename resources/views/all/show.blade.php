@@ -2,7 +2,7 @@
 
 
 <div id="btn_login">
-<a href="./login">
+<a href="../login">
     <img src="../login.png">
 </a>
 </div>

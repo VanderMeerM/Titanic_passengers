@@ -41,7 +41,14 @@ public static function get_url(Request $request) {
     $ctg = $request->path();
     $ctg === 'passengers' ? $ctg = ucfirst(substr($ctg, 0, strlen($ctg)-1)) :   
     ($ctg === 'all' ? $ctg = 'Passenger' : null);
-    return $ctg;
+     return $ctg;
+    
+}
+
+public static function get_second_cat(Request $request) {
+    $ctg = $request->path();
+    $ctg === 'all' ? $sec_ctg = 'Crew' : $sec_ctg = null;
+     return $sec_ctg;
     
 }
 public static array $status_label = ['Saved' => 'Overleefd', 'Lost' => 'Omgekomen', 'Unknown' => 'Onbekend'];

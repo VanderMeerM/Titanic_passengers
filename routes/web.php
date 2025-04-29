@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\PassengerController;
+use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,6 +22,10 @@ Route::get('/passengers', function () {
 
 
 //Route::get('/all/{filter}', [PassengersController::class, 'passageners'])->name('passengers.index');
+
+Route::get('/login', [SessionController::class, 'create'])->name('auth.login');
+Route::post('/login', [SessionController::class, 'store']);
+
 
  Route::get('/crew', function () {
   return redirect()->route('all.index')

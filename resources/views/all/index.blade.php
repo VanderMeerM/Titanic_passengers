@@ -14,9 +14,11 @@
 
 <br>
 
-<div> {{ $curr_url }}</div>
 
-<form action= {{ route('all.index') }} method= 'get'> <!-- action = {{ route('passengers.index') }} --> 
+@php $sel_cat = explode('/', $_SERVER["REQUEST_URI"])[1];
+@endphp
+
+<form action= {{ route(explode('?', $sel_cat)[0]. '.index') }} method= 'get'> <!-- action = {{ route('passengers.index') }} --> 
  @csrf
 
  <div>
@@ -203,10 +205,17 @@ value=" {{ request('name') }}" class="input h-10">
 
 <div class="buttonbar">
 
-  <a href="/all">Alle opvarenden </a>
-<a href="/passengers">Passagiers  </a>
-  <a href="/crew">Bemanning  </a>
+  <a href="/all" {{ request()->path() === 'all' ? 'style=text-decoration-line:underline' : null }} >Alle opvarenden </a>
+<a href="/passengers" {{ request()->path() === 'passengers' ? 'style=text-decoration-line:underline' : null }} >Passagiers  </a>
+  <a href="/crew" {{ request()->path() === 'crew' ? 'style=text-decoration-line:underline' : null }} >Bemanning  </a>
 
+
+  @auth
+<a href="../logout">
+    <img style="width:50px" src="../login.png">
+</a>
+
+@endauth
 </div>
 
 <div class="bar-top"> Aantal personen: {{ $passengers->count() }}</div>

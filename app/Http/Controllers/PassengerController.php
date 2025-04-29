@@ -17,15 +17,18 @@ class PassengerController extends Controller
     {
 
       $current_url = Passenger::get_url($request);
-      $current_url_2 = 'Crew';     
+
+      $second_cat = Passenger::get_second_cat ($request);
+
+      //$current_url = 'all' ? $current_url_2 = 'Crew' : null;     
 
     // Alle unieke waarden voor checkboxes uit database halen..
-       $all_ages = Passenger::select('Age')->where('Category', $current_url)->where('Age','>=','1')->distinct()->orderBy('Age', 'ASC')->get();
-       $genders = Passenger::select('Gender')->where('Category', $current_url)->distinct()->orderBy('Gender', 'ASC')->get();
-       $embarked = Passenger::select('Embarked')->where('Category', $current_url)->distinct()->orderBy('Embarked', 'ASC')->get();
-       $classes = Passenger::select('Class')->orWhere(['Category'=>$current_url], ['Category' => $current_url_2])->distinct()->orderBy('Class', 'ASC')->get(); 
-       $nationalities = Passenger::select('Nationality')->where('Category', $current_url)->distinct()->orderBy('Nationality', 'ASC')->get(); 
-       $statuses = Passenger::select('Survived')->where('Category', $current_url)->distinct()->orderBy('Survived', 'ASC')->get(); 
+       $all_ages = Passenger::select('Age')->where('Category', $current_url)->orWhere('Category', $second_cat)->where('Age','>=','1')->distinct()->orderBy('Age', 'ASC')->get();
+       $genders = Passenger::select('Gender')->where('Category', $current_url)->orWhere('Category', $second_cat)->distinct()->orderBy('Gender', 'ASC')->get();
+       $embarked = Passenger::select('Embarked')->where('Category', $current_url)->orWhere('Category', $second_cat)->distinct()->orderBy('Embarked', 'ASC')->get();
+       $classes = Passenger::select('Class')->where('Category', $current_url)->orWhere('Category', $second_cat)->distinct()->orderBy('Class', 'ASC')->get(); 
+       $nationalities = Passenger::select('Nationality')->where('Category', $current_url)->orWhere('Category', $second_cat)->distinct()->orderBy('Nationality', 'ASC')->get(); 
+       $statuses = Passenger::select('Survived')->where('Category', $current_url)->orWhere('Category', $second_cat)->distinct()->orderBy('Survived', 'ASC')->get(); 
        
        $name = $request->input('name');
 
@@ -46,7 +49,7 @@ class PassengerController extends Controller
         
            if($gender) {
             $passengers = $passengers
-             ->when($age_value) -> where('Age',$age_value, $age_number)
+            ->when($age_value) -> where('Age',$age_value, $age_number)
             ->whereIn('Gender', $gender)
             ->whereIn('Embarked', $boarded)
             ->whereIn('Class', $class)
@@ -54,7 +57,7 @@ class PassengerController extends Controller
             ->whereIn('Survived', $survived);
            }
     
-         $passengers = $passengers->where('Category', $current_url)->get();
+         $passengers = $passengers->where('Category', $current_url)->orWhere('Category', $second_cat)->get();
             
         return view('all.index', [
         'passengers' => $passengers, 
@@ -72,8 +75,8 @@ class PassengerController extends Controller
         'nationalities_filtered' => $nationality,
         'survived_filtered' => $survived, 
         'curr_url' => $current_url,   
-        'curr_url_2' => $current_url_2        
-    ]);
+        'curr_url_2' => $second_cat, 
+      ]);
     }
 
         
