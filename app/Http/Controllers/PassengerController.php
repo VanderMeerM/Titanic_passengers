@@ -41,13 +41,21 @@ class PassengerController extends Controller
        $nationality = $request->get('nationality');
        $survived = $request->get('survvict');
 
+       $request->validate(
+             ['gender'=> ['min: 1'], 
+             'boarded'=>['min: 1'],
+             'class'=>['min: 1'],
+             'nationality'=>['min: 1'],
+             'survived'=>['min: 1']
+       ]
+       );
+
        $passengers= Passenger::when(
             $name, 
             fn($query, $name) => $query->name($name)
         );
 
-        
-           if($gender) {
+          if($gender) {
             $passengers = $passengers
             ->when($age_value) -> where('Age',$age_value, $age_number)
             ->whereIn('Gender', $gender)

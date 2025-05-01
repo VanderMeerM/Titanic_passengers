@@ -22,17 +22,21 @@
 
   <main class="form-signin w-50 m-auto">
 
-  <form method="post" action="/login">
+
+  <form method="post" action="">
     @csrf
-    
+     
     <h1 class="h3 mb-3 fw-normal" style="color:#900">Inlogpagina</h1>
 
     <p></p>
 
+   <input name="pass_id" value="{{ request()->post('pass_id') }}">
+
     <div class="form-floating">
-    <label for="floatingInput">Gebruikersnaam</label>
-    <input name= 'username' type="text" class="form-control" id="floatingInput">
+    <label for="floatingInput">E-mail</label>
+    <input name= 'email' {{ old('email') }} type="email" class="form-control" id="floatingInput">
     </div>
+
       
        <div class="form-floating">
        <label for="floatingPassword">Wachtwoord</label>
@@ -40,7 +44,7 @@
      </div>
 <p></p>
    
-    <button name='login' type="submit" class="w-50 btn btn-lg btn-primary">Inloggen</button>
+    <button type="submit" class="w-50 btn btn-lg btn-primary">Inloggen</button>
    
   </form>
 

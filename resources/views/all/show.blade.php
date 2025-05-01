@@ -1,11 +1,27 @@
 @extends('CSS.app')
 
 
+@guest
+
+<!--
+<form action=" {{  route('auth.login') }}" method="post">
+ @csrf
+ --->
+
 <div id="btn_login">
-<a href="../login">
-    <img src="../login.png">
+ <a href="{{  route('auth.login') }}" >
+<input type="hidden" name="pass_id" value="{{  $passenger->Id }}">
+<img src="../login.png">
 </a>
 </div>
+<!--<button type="submit"> -->
+  
+
+
+
+@endguest
+
+{{ $passenger->Id }}
 
 <div class="container_detail">
 
@@ -13,6 +29,15 @@
         id="name_detail">← Terug naar overzicht van passagiers</a>
 
 <p> 
+
+@auth
+<div>
+<a href=" {{ route('auth.logout') }}">
+    <img src="../logout.png">
+</a>
+</div>
+@endauth
+
 
   @php $classes_crew = [];
   @endphp
@@ -35,12 +60,16 @@ $classes_crew = array_slice($classes_crew, 6);
 
 @endif
 
+@auth
+
 <form action=" {{ route('file.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <input type="file" name="file">
     <input type="hidden" name="pass_id" value = {{  $passenger->Id }}>
     <button type="submit">Foto uploaden</button>
 </form>
+
+@endauth
 
     <div id="name_detail">
 {{ $passenger->Name }} ({{ $passenger->Age }}) 

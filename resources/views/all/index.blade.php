@@ -212,7 +212,7 @@ value=" {{ request('name') }}" class="input h-10">
 
   @auth
 <a href="../logout">
-    <img style="width:50px" src="../login.png">
+    <img style="width:50px" src="../logout.png">
 </a>
 
 @endauth
