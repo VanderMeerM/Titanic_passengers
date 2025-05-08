@@ -1,6 +1,7 @@
 
 @extends('CSS.app')
 
+<script src="https://cdn.tailwindcss.com"></script>
 
 <body> 
 
@@ -12,19 +13,21 @@
 
 <div class="formchecks scroll-box">
 
-<br>
 
+<br>
 
 @php $sel_cat = explode('/', $_SERVER["REQUEST_URI"])[1];
 @endphp
 
-<form action= {{ route(explode('?', $sel_cat)[0]. '.index') }} method= 'get'> <!-- action = {{ route('passengers.index') }} --> 
+<form action= {{ route(explode('?', $sel_cat)[0]. '.index') }} method= 'post'> <!-- action = {{ route('passengers.index') }} --> 
  @csrf
 
  <div>
 <strong>Leeftijd<br></strong> 
 <br>
 
+<div class="flex items-stretch">
+  
   <select id='age_value' name='age_value'>
   <option value=''> Kies optie </option>
 
@@ -59,6 +62,7 @@ value={{$age['Age']}}>{{$age['Age']}}</option>
  </select>
 
  </div>
+ </div>
  <br>
      
 <div>
@@ -79,6 +83,8 @@ value={{$age['Age']}}>{{$age['Age']}}</option>
 </div>
 
 @endforeach
+
+<x-gender> </x-gender>
 
 </div>
 <br>
@@ -102,6 +108,8 @@ value={{$age['Age']}}>{{$age['Age']}}</option>
 @endforeach
 
 </div>
+<x-boarded> </x-boarded>
+
 <br>
 
 <div>
@@ -115,18 +123,26 @@ value={{$age['Age']}}>{{$age['Age']}}</option>
   if ( is_null($class_filtered) || 
   ($class_filtered !=null) && (in_array($class['Class'], $class_filtered))) { echo 'checked'; } 
    @endphp 
-  value= "{{  $class['Class'] }}" name="class[]" name= {{ $class }} type="checkbox"/>{{ $class['Class'] }}
+  value= "{{  $class['Class'] }}" name="class[]" name= {{ $class }} type="checkbox"/> {{ $class['Class'] }}
 </div>
 
 @endforeach
 
 </div>
 
+<x-class> </x-class>
+
 <div>
 
 <br>
 
-<strong>Nationaliteit<br></strong>
+<div class="flex items-stretch mb-2">
+<strong>Nationaliteit<br></strong><img id="show_hide" class="w-12 h-auto ml-2" src="../hide.png">
+</div>
+
+<div id="show_hide_nat">
+
+<input id="cb_select_all" class="mb-3" checked type="checkbox"> <i>(De)selecteer alles </i>
 
 @foreach ($nationalities as $nat)
 
@@ -138,15 +154,56 @@ value={{$age['Age']}}>{{$age['Age']}}</option>
   ($nationalities_filtered !=null) && (in_array($nat['Nationality'], $nationalities_filtered))) { echo 'checked'; } 
   @endphp   
   
-  value= "{{ $nat['Nationality'] }}" name="nationality[]" name= {{ $nat }} type="checkbox"/>{{ $nat['Nationality'] }}
+  value= "{{ $nat['Nationality'] }}" class="cb_nat" name="nationality[]" name= {{ $nat }} type="checkbox"/> {{ $nat['Nationality'] }}
 </div>
 
 @endforeach
 
  <br>
 </div>
+</div>
+
+<x-nationality> </x-nationality>
 
 <div>
+
+<script>
+  let eye = false;
+  const showHide = document.getElementById('show_hide');
+  const showHideNat = document.getElementById('show_hide_nat');
+
+  showHide.addEventListener('click', () => { 
+      eye = !eye; 
+      if (eye) {
+        showHide.setAttribute('src', '../show.png');
+        showHideNat.style.display = 'none';
+      }
+      else {
+        showHide.setAttribute('src', '../hide.png');
+        showHideNat.style.display = 'block';
+
+      }
+    })
+
+  const checkboxAll = document.getElementById('cb_select_all');
+  const checkboxNat = document.querySelectorAll('.cb_nat');
+
+    checkboxAll.addEventListener('click', () => { 
+
+      if (!checkboxAll.checked) {
+      checkboxNat.forEach(function (cb) {
+                cb.checked = this.checked;
+            }, this)
+          }
+          else {
+            checkboxNat.forEach(function (cb) {
+                cb.checked = !this.checked;
+            }, this)
+          }
+          
+  })
+   
+  </script>
  
 <strong>Overleefd / omgekomen<br></strong>
 
@@ -168,11 +225,14 @@ value={{$age['Age']}}>{{$age['Age']}}</option>
 
 @endforeach
 
+<x-survived> </x-survived>
+
+
 <br>
 
 </div>
 
-<button class='inline' type="submit" id='btn-filter' name="apply">Pas toe</button>
+<button class='inline' type="submit" id='btn-filter' name="apply">Filter</button>
 
 </form>
 
@@ -180,24 +240,19 @@ value={{$age['Age']}}>{{$age['Age']}}</option>
 
 </div>
 
-<div class='formname'> 
+<div class='formname mt-4'> 
 
 <strong>Zoek op een naam<p></strong>
 
-<form method="GET" action = "{{ route('all.index') }}" class="mb-4 flex items-center space-x-2">
+<form method="GET" action = "{{ route('all.index') }}">
 @csrf
 
 <input class="input" type="text" name="name" placeholder="Voer naam in"
 value=" {{ request('name') }}" class="input h-10">
 
-<p>
-
-<button id='btn-filter' type="submit" class='margin_left'>Zoek</button> 
-
-<hr>
-
-</div>
+<button id='btn-filter' type="submit" class='mt-2'>Zoek</button> 
 </form>
+</div>
 
 </div>
 
@@ -205,20 +260,21 @@ value=" {{ request('name') }}" class="input h-10">
 
 <div class="buttonbar">
 
-  <a href="/all" {{ request()->path() === 'all' ? 'style=text-decoration-line:underline' : null }} >Alle opvarenden </a>
+<a href="/all" {{ request()->path() === 'all' ? 'style=text-decoration-line:underline' : null }} >Alle opvarenden </a>
 <a href="/passengers" {{ request()->path() === 'passengers' ? 'style=text-decoration-line:underline' : null }} >Passagiers  </a>
-  <a href="/crew" {{ request()->path() === 'crew' ? 'style=text-decoration-line:underline' : null }} >Bemanning  </a>
+ <a href="/crew" {{ request()->path() === 'crew' ? 'style=text-decoration-line:underline' : null }} >Bemanning  </a>
 
-
-  @auth
-<a href="../logout">
-    <img style="width:50px" src="../logout.png">
-</a>
-
-@endauth
 </div>
 
-<div class="bar-top"> Aantal personen: {{ $passengers->count() }}</div>
+
+@auth
+<a href="../logout">
+ <img class='loginout' src="../logout.png"> 
+</a>
+@endauth
+
+
+<div class="bar-top"> Aantal (obv filtering): {{ $passengers->count() }}</div>
 
 <div class="container-right">
 

@@ -12,9 +12,12 @@
 		crossorigin="anonymous">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <title>Inlogpagina</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    @extends('CSS.login')
 
 </head>
 
@@ -30,25 +33,36 @@
 
     <p></p>
 
-   <input name="pass_id" value="{{ request()->post('pass_id') }}">
+   <input type="hidden" name="pass_id" value="{{ request()->get('pass_id') }}">
 
     <div class="form-floating">
     <label for="floatingInput">E-mail</label>
-    <input name= 'email' {{ old('email') }} type="email" class="form-control" id="floatingInput">
+    <input name="email" id="email" value= " {{ old('email') }}" type="email" class="form-control @error('email') red @enderror" id="floatingInput">
     </div>
-
-      
-       <div class="form-floating">
-       <label for="floatingPassword">Wachtwoord</label>
-      <input name= 'password' type="password" class="form-control" id="floatingPassword">
-     </div>
-<p></p>
    
-    <button type="submit" class="w-50 btn btn-lg btn-primary">Inloggen</button>
+    <x-email> </x-email>
+
+
+       <div class="form-floating mt-3">
+       <label for="floatingPassword">Wachtwoord</label>
+      <input name= 'password' type="password" class="form-control @error('password') red @enderror" id="floatingPassword">
+     </div>
+
+     <x-nopassword> </x-nopassword>
+
+
+@if(session('error'))
+    <p class="text-xs text-red-500 font-semibold mt-1">
+        {{ session('error') }}
+    </p>
+@endif
+
+    
+  
+    <button type="submit" class="w-50 mt-5 btn btn-lg btn-primary">Inloggen</button>
    
   </form>
 
- 
 </main>
 
 

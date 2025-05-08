@@ -2,9 +2,7 @@
 
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\PassengerController;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SessionController;
-use App\Models\Passenger;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,6 +12,7 @@ Route::get('/', function () {
 Route::get('/all', function() {
   return redirect()->route('all.index');
 });
+Route::post('/all', action: [SessionController::class, 'store'])->name('all.index');
 
 
 Route::get('/passengers', function () {
@@ -28,20 +27,20 @@ Route::get('/crew', function () {
 
 
 Route::get('/login', [SessionController::class, 'create'])->name('auth.login');
-Route::post('/login', [SessionController::class, 'store'])->name('auth.login');
+Route::post('/login', action: [SessionController::class, 'store'])->name('auth.login');
 
 
 Route::get('/logout', [SessionController::class, 'destroy'])->name('auth.logout');
 
 
  Route::resource('all', PassengerController::class)
-->only(['index', 'show', 'update']);
+->only(['index', 'show', 'store']);
 
 Route::resource('passengers', PassengerController::class)
-->only(['index', 'show', 'update']);
+->only(['index', 'show', 'store']);
 
 Route::resource('crew', PassengerController::class)
-->only(['index', 'show', 'update']);
+->only(['index', 'show', 'store']);
 
 Route::post('upload', [FileUploadController::class, 'store'])->name('file.store');
 

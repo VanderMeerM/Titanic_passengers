@@ -35,7 +35,7 @@ text-decoration: none;
 
 .container-left {
     flex: 20%;
-    max-width: 200px;
+    max-width: 230px;
     background-color: var(--lightblue);
     padding-left: 10px;       
     height: 1000vh;    
@@ -49,6 +49,8 @@ text-decoration: none;
 #age_number {
     background-color: var(--lightblue);
     color: brown;
+    border: 1px solid brown;
+    margin: 0 2px;
 }
 
 
@@ -85,10 +87,12 @@ text-decoration: none;
 }
 
 .scroll-box {
-  max-width:200px;
+  max-width:220px;
   height:  calc(100vh - 200px);
   overflow: auto;
-  scrollbar-width: thick;
+  scrollbar-width: thin;
+  background-color: var(--lightblue);
+
 }
 
 hr {
@@ -136,7 +140,6 @@ hr {
     padding: 10px;
     border-radius: 25px;
     color: white;
-
 }
 
 .margin_left {
@@ -149,20 +152,21 @@ hr {
 }
 
 
-#btn_login {
+.loginout {
     position:absolute;
     right: 0;
+    margin-right: 2%; 
+    max-width: 50px;
+    cursor: pointer;
+    height: auto;
 }
 
-#btn_login a img {
-    width: 7%;
-    height: auto;
-} 
 
 .img_pass {
     max-width: 250px;
     height: auto;
 }
+
 
 @media (max-width: 1045px) {
     .container-right {

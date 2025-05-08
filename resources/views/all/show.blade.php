@@ -3,19 +3,17 @@
 
 @guest
 
-<!--
-<form action=" {{  route('auth.login') }}" method="post">
+
+<form action=" {{  route('auth.login') }}" method="get">
  @csrf
- --->
 
 <div id="btn_login">
- <a href="{{  route('auth.login') }}" >
+ 
 <input type="hidden" name="pass_id" value="{{  $passenger->Id }}">
-<img src="../login.png">
-</a>
+
+<button type="submit"> <img class='loginout' src="../login.png">
+</button>
 </div>
-<!--<button type="submit"> -->
-  
 
 
 
@@ -33,7 +31,7 @@
 @auth
 <div>
 <a href=" {{ route('auth.logout') }}">
-    <img src="../logout.png">
+    <img class='loginout' src="../logout.png">
 </a>
 </div>
 @endauth

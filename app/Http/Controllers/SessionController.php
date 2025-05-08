@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 
 class SessionController extends Controller
@@ -15,25 +16,26 @@ class SessionController extends Controller
 
     public function store(Request $request) {
 
-    //    dd('test');
-
-        $credentials = $request->validate([
+            $credentials = $request->validate([
             'email' => ['required', 'email'], 
             'password' => ['required']
         ]);
 
+        $pass_id = $request->input('pass_id');
+
         
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, true)) {
 
             $request->session()->regenerate();
 
-            $pass_id = $request->input('pass_id');
-
-            return redirect()->route('all.index');
+            return to_route('all.show',['all'=> $pass_id]);
         }
+                   
+       return redirect(request()->fullUrl())->with('error', 'Onjuiste gebruikersnaam en/of wachtwoord.');
+       
+       }
 
-    }
-
+    
 public function destroy() {
 
     Auth::logout();

@@ -47,7 +47,8 @@ public static function get_url(Request $request) {
 
 public static function get_second_cat(Request $request) {
     $ctg = $request->path();
-    $ctg === 'all' ? $sec_ctg = 'Crew' : $sec_ctg = null;
+    $sec_ctg = '';
+    $ctg === 'all' ? $sec_ctg = 'Crew' : null;
      return $sec_ctg;
     
 }
