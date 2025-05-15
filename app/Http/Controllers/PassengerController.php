@@ -22,7 +22,7 @@ class PassengerController extends Controller
 
     // Alle unieke waarden voor checkboxes uit database halen..
        $all_ages = Passenger::select('Age')->whereIn('Category', [$current_url, $second_cat])->where('Age','>=','1')->distinct()->orderBy('Age', 'ASC')->get();
-       $genders = Passenger::select('Gender')->whereIn('Category', [$current_url, $second_cat])->distinct()->orderBy('Gender', 'ASC')->get();
+       $genders = Passenger::select('Gender')->whereIn('Category', [$current_url, $second_cat])->distinct()->orderBy('Gender', 'DESC')->get();
        $embarked = Passenger::select('Embarked')->whereIn('Category', [$current_url, $second_cat])->distinct()->orderBy('Embarked', 'ASC')->get();
        $classes = Passenger::select('Class')->whereIn('Category', [$current_url, $second_cat])->distinct()->orderBy('Class', 'ASC')->get(); 
        $nationalities = Passenger::select('Nationality')->whereIn('Category', [$current_url, $second_cat])->distinct()->orderBy('Nationality', 'ASC')->get(); 
@@ -39,6 +39,14 @@ class PassengerController extends Controller
        $nationality = $request->get('nationality');
        $survived = $request->get('survvict');
 
+       $nationalities_keys = []; 
+
+       foreach ($nationalities as $nat_keys) {
+        array_push($nationalities_keys, $nat_keys['Nationality']);
+       } 
+     
+       $arr_nationalities_total = array_combine($nationalities_keys, Passenger::$nationalities_translated);
+       asort($arr_nationalities_total);
       
        $passengers= Passenger::when(
             $name, 
@@ -71,6 +79,7 @@ class PassengerController extends Controller
         'class_filtered' => $class,
         'embarked_filtered' => $boarded,
         'nationalities_filtered' => $nationality,
+        'arr_nationalities_total' => $arr_nationalities_total,
         'survived_filtered' => $survived, 
         'curr_url' => $current_url,   
         'curr_url_2' => $second_cat
@@ -116,7 +125,7 @@ class PassengerController extends Controller
 
   // Alle unieke waarden voor checkboxes uit database halen..
      $all_ages = Passenger::select('Age')->whereIn('Category', [$current_url, $second_cat])->where('Age','>=','1')->distinct()->orderBy('Age', 'ASC')->get();
-     $genders = Passenger::select('Gender')->whereIn('Category', [$current_url, $second_cat])->distinct()->orderBy('Gender', 'ASC')->get();
+     $genders = Passenger::select('Gender')->whereIn('Category', [$current_url, $second_cat])->distinct()->orderBy('Gender', 'DESC')->get();
      $embarked = Passenger::select('Embarked')->whereIn('Category', [$current_url, $second_cat])->distinct()->orderBy('Embarked', 'ASC')->get();
      $classes = Passenger::select('Class')->whereIn('Category', [$current_url, $second_cat])->distinct()->orderBy('Class', 'ASC')->get(); 
      $nationalities = Passenger::select('Nationality')->whereIn('Category', [$current_url, $second_cat])->distinct()->orderBy('Nationality', 'ASC')->get(); 
@@ -133,6 +142,14 @@ class PassengerController extends Controller
      $nationality = $request->get('nationality');
      $survived = $request->get('survvict');
 
+    $nationalities_keys = []; 
+
+       foreach ($nationalities as $nat_keys) {
+        array_push($nationalities_keys, $nat_keys['Nationality']);
+       } 
+     
+       $arr_nationalities_total = array_combine($nationalities_keys, Passenger::$nationalities_translated);
+       asort($arr_nationalities_total);
     
      $passengers= Passenger::when(
           $name, 
@@ -162,6 +179,7 @@ class PassengerController extends Controller
       'class_filtered' => $class,
       'embarked_filtered' => $boarded,
       'nationalities_filtered' => $nationality,
+      'arr_nationalities_total' => $arr_nationalities_total,
       'survived_filtered' => $survived, 
       'curr_url' => $current_url,   
       'curr_url_2' => $second_cat

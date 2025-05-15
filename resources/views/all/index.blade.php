@@ -5,8 +5,6 @@
 
 <body> 
 
-
-
 <div class="container">
 
 <div class="container-left">
@@ -144,26 +142,29 @@ value={{$age['Age']}}>{{$age['Age']}}</option>
 
 <input id="cb_select_all" class="mb-3" checked type="checkbox"> <i>(De)selecteer alles </i>
 
-@foreach ($nationalities as $nat)
+
+@foreach ($arr_nationalities_total as $key=>$value )
 
 <div>
   <input 
   
   @php
   if ( is_null($nationalities_filtered) || 
-  ($nationalities_filtered !=null) && (in_array($nat['Nationality'], $nationalities_filtered))) { echo 'checked'; } 
+  ($nationalities_filtered !=null) && (in_array($key, $nationalities_filtered))) { echo 'checked'; } 
   @endphp   
   
-  value= "{{ $nat['Nationality'] }}" class="cb_nat" name="nationality[]" name= {{ $nat }} type="checkbox"/> {{ $nat['Nationality'] }}
+  value= "{{ $key }}" class="cb_nat" name="nationality[]" type="checkbox"/>
+   {{ (array_key_exists($key, $arr_nationalities_total) ? $value : $key) }}
 </div>
 
 @endforeach
 
- <br>
+ <x-nationality> </x-nationality>
+<br>
 </div>
 </div>
 
-<x-nationality> </x-nationality>
+
 
 <div>
 
