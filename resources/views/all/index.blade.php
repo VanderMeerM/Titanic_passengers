@@ -14,6 +14,7 @@
 
 <br>
 
+
 @php $sel_cat = explode('/', $_SERVER["REQUEST_URI"])[1];
 @endphp
 
@@ -24,7 +25,7 @@
 <strong>Leeftijd<br></strong> 
 <br>
 
-<div class="flex items-stretch">
+<div class="select items-stretch">
   
   <select id='age_value' name='age_value'>
   <option value=''> Kies optie </option>
@@ -259,23 +260,30 @@ value=" {{ request('name') }}" class="input h-10">
 
 <div class="main-container-right">
 
-<div class="buttonbar">
+<div class="flex items-baseline buttonbar">
+
+<div class="flex bar-top"> Aantal (obv filtering): {{ $passengers->count() }}
+
+<div class="flex space-x-4">
 
 <a href="/all" {{ request()->path() === 'all' ? 'style=text-decoration-line:underline' : null }} >Alle opvarenden </a>
 <a href="/passengers" {{ request()->path() === 'passengers' ? 'style=text-decoration-line:underline' : null }} >Passagiers  </a>
- <a href="/crew" {{ request()->path() === 'crew' ? 'style=text-decoration-line:underline' : null }} >Bemanning  </a>
+<a href="/crew" {{ request()->path() === 'crew' ? 'style=text-decoration-line:underline' : null }} >Bemanning  </a>
 
 </div>
 
-
 @auth
-<a href="../logout">
- <img class='loginout' src="../logout.png"> 
-</a>
+
+<form method="post" action="../logout">
+ @csrf
+<button type="submit"> <img class='loginout' src="../logout.png"> 
+</button>
+</form>
+
 @endauth
 
-
-<div class="bar-top"> Aantal (obv filtering): {{ $passengers->count() }}</div>
+</div>
+</div>
 
 <div class="container-right">
 

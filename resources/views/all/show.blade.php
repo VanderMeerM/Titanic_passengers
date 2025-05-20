@@ -29,11 +29,13 @@
 <p> 
 
 @auth
-<div>
-<a href=" {{ route('auth.logout') }}">
-    <img class='loginout' src="../logout.png">
-</a>
-</div>
+
+<form method="post" action="../logout">
+ @csrf
+<button type="submit"> <img class='loginout' src="../logout.png"> 
+</button>
+</form>
+
 @endauth
 
 
@@ -99,7 +101,7 @@ Opgestapt in: {{$passenger->Embarked}}
 @endif
 
 @if ($passenger->Nationality != '')
-Nationaliteit: {{  $passenger->Nationality }}
+Nationaliteit: {{  \App\Models\Passenger::$nationalities_translated[$passenger->Nationality] }}
 <br>
 @endif
 

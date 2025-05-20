@@ -40,12 +40,19 @@ class PassengerController extends Controller
        $survived = $request->get('survvict');
 
        $nationalities_keys = []; 
+       $arr_nationalities_total = [];
 
        foreach ($nationalities as $nat_keys) {
         array_push($nationalities_keys, $nat_keys['Nationality']);
        } 
+
+       foreach($nationalities_keys as $nat_keys) {
+        if (array_key_exists($nat_keys, Passenger::$nationalities_translated)) {
+          $arr_nationalities_total += [$nat_keys => Passenger::$nationalities_translated[$nat_keys]];
+        }
+       }
      
-       $arr_nationalities_total = array_combine($nationalities_keys, Passenger::$nationalities_translated);
+      // $arr_nationalities_total = array_combine($nationalities_keys, Passenger::$nationalities_translated);
        asort($arr_nationalities_total);
       
        $passengers= Passenger::when(
@@ -142,15 +149,23 @@ class PassengerController extends Controller
      $nationality = $request->get('nationality');
      $survived = $request->get('survvict');
 
-    $nationalities_keys = []; 
+     $nationalities_keys = []; 
+       $arr_nationalities_total = [];
 
        foreach ($nationalities as $nat_keys) {
         array_push($nationalities_keys, $nat_keys['Nationality']);
        } 
+
+       foreach($nationalities_keys as $nat_keys) {
+        if (array_key_exists($nat_keys, Passenger::$nationalities_translated)) {
+          $arr_nationalities_total += [$nat_keys => Passenger::$nationalities_translated[$nat_keys]];
+        }
+       }
      
-       $arr_nationalities_total = array_combine($nationalities_keys, Passenger::$nationalities_translated);
+      // $arr_nationalities_total = array_combine($nationalities_keys, Passenger::$nationalities_translated);
        asort($arr_nationalities_total);
-    
+
+   
      $passengers= Passenger::when(
           $name, 
           fn($query, $name) => $query->name($name)

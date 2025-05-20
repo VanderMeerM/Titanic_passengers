@@ -3,6 +3,7 @@
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\PassengerController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -30,7 +31,7 @@ Route::get('/login', [SessionController::class, 'create'])->name('auth.login');
 Route::post('/login', action: [SessionController::class, 'store'])->name('auth.login');
 
 
-Route::get('/logout', [SessionController::class, 'destroy'])->name('auth.logout');
+Route::post('/logout', [SessionController::class, 'destroy'])->name('auth.logout');
 
 
  Route::resource('all', PassengerController::class)
@@ -44,7 +45,8 @@ Route::resource('crew', PassengerController::class)
 
 Route::post('upload', [FileUploadController::class, 'store'])->name('file.store');
 
-
+Route::get('update_show', [UserController::class, 'show'])-> name('user.show');
+Route::post('update_user', [UserController::class, 'update'])-> name('user.update');
 
   
     

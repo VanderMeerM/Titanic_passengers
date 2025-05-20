@@ -13,19 +13,17 @@ body {
 }
 
 .buttonbar {
-    width: 100%;
-    text-align: center;
+    align-items: baseline;
+    width: 80%;
     top: 10px;
-    height: 20px;
+    background-color: purple;
     position: fixed;
     font-family: Arial, Helvetica, sans-serif;
 }
 
 .buttonbar a {
-padding: 10px;
-margin: 20px;
-background-color: whitesmoke;
-color: black;
+margin: 0 20px;
+color: white;
 text-decoration: none;
 }
 
@@ -103,6 +101,9 @@ hr {
     display: inline-block;
 }
 
+.select {
+    display: flex;
+}
 
 #name-person,
 #name-person a:link
@@ -156,7 +157,7 @@ hr {
     position:absolute;
     right: 0;
     margin-right: 2%; 
-    max-width: 50px;
+    width: 30px;
     cursor: pointer;
     height: auto;
 }
@@ -168,13 +169,22 @@ hr {
 }
 
 
+@media (max-width: 1280px) {
+.main-container-right {
+    margin-left: 20%;
+}
+}
+
 @media (max-width: 1045px) {
     .container-right {
         column-count: 4;
 }
 .formname, 
 .formchecks {
-    width: 100px;
+    width: 20%;
+}
+.select {
+    display: block;
 }
 }
 
