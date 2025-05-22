@@ -24,15 +24,18 @@ class SessionController extends Controller
         $pass_id = $request->input('pass_id');
 
         
-        if (Auth::attempt($credentials, true)) {
+        if (!Auth::attempt($credentials, true)) {
 
-            $request->session()->regenerate();
+            throw ValidationException::withMessages([
+                'error' => 'Onjuiste gegevens'
+            ]);
 
-            return to_route('all.show',['all'=> $pass_id]);
         }
+
+         $request->session()->regenerate();
                    
-       return redirect(request()->fullUrl())->with('error', 'Onjuiste gebruikersnaam en/of wachtwoord.');
-       
+         return to_route('all.show',['all'=> $pass_id]);
+
        }
 
     

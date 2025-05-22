@@ -37,27 +37,20 @@
 
     <div class="form-floating">
     <label for="floatingInput">E-mail</label>
-    <input name="email" id="email" value= " {{ old('email') }}" type="email" class="form-control @error('email') red @enderror" id="floatingInput">
+    <input name="email" id="email" value= " {{ old('email') }}" type="email" class="form-control @error('email') red @enderror @error('error') red @enderror" id="floatingInput">
     </div>
    
-    <x-email> </x-email>
-
+    <x-email></x-email>
 
        <div class="form-floating mt-3">
        <label for="floatingPassword">Wachtwoord</label>
-      <input name= 'password' type="password" class="form-control @error('password') red @enderror" id="floatingPassword">
+      <input name= 'password' type="password" class="form-control @error('password') red @enderror  @error('error') red @enderror" id="floatingPassword">
      </div>
 
-     <x-nopassword> </x-nopassword>
+    <x-nopassword></x-nopassword>
 
-
-@if(session('error'))
-    <p class="text-xs text-red-500 font-semibold mt-1">
-        {{ session('error') }}
-    </p>
-@endif
-
-    
+     <x-error> </x-error>
+ 
   
     <button type="submit" class="w-50 mt-5 btn btn-lg btn-primary">Inloggen</button>
    
