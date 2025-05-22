@@ -3,7 +3,8 @@
 
 :root {
     --lightgreen : rgb(174, 216, 149);
-    --lightblue: rgb(171, 201, 226);
+    /*--lightblue: rgb(171, 201, 226);*/
+    --tit_red: #9c200a;
 }
 
 
@@ -12,18 +13,23 @@ body {
     
 }
 
+.bar-top {
+    flex: 100%;
+    height: 40px;
+    padding-left: 1%;
+}
+
 .buttonbar {
     align-items: baseline;
     width: 80%;
     top: 10px;
-    background-color: purple;
+    background-color: whitesmoke;
     position: fixed;
     font-family: Arial, Helvetica, sans-serif;
 }
 
 .buttonbar a {
-margin: 0 20px;
-color: white;
+color: #9c200a;
 text-decoration: none;
 }
 
@@ -34,7 +40,7 @@ text-decoration: none;
 .container-left {
     flex: 20%;
     max-width: 230px;
-    background-color: var(--lightblue);
+    background-color: whitesmoke;
     padding-left: 10px;       
     height: 1000vh;    
 }
@@ -45,24 +51,21 @@ text-decoration: none;
 
 #age_value, 
 #age_number {
-    background-color: var(--lightblue);
     color: brown;
     border: 1px solid brown;
-    margin: 0 2px;
+    margin: 0 4px;
+    max-width: 95px;
 }
 
+#show_hide_nat {
+display: none;
+}
 
 .main-container-right {
      flex: 80%;    
-     margin-top: 30px;
+     margin-top: 5%;
 }
 
-.bar-top {
-    flex: 100%;
-    height: 40px;
-    color: yellow;
-    padding-left: 1%;
-}
 
 .container-right {
     column-count: 5;
@@ -70,17 +73,16 @@ text-decoration: none;
       
 }
 
-.formname {
+.formname, .formchecks {
     position: fixed;
     top: 0px;
-    background-color: var(--lightblue);
+    background-color: whitesmoke;
+    color: var(--tit_red);
     width: 200px;
 }
 
 .formchecks {
-    position: fixed;
-    top: 150px;
-    background-color:  var(--lightblue);
+   top: 150px;
   
 }
 
@@ -89,7 +91,7 @@ text-decoration: none;
   height:  calc(100vh - 200px);
   overflow: auto;
   scrollbar-width: thin;
-  background-color: var(--lightblue);
+    background-color: whitesmoke;
 
 }
 
@@ -131,7 +133,7 @@ hr {
     color: var(--lightgreen);
     font-weight: bolder;
     font-size: 20px;
-    margin-top: 10%;
+    margin-top: 3%;
 }
 
 
@@ -171,7 +173,11 @@ hr {
 
 @media (max-width: 1280px) {
 .main-container-right {
-    margin-left: 20%;
+    margin-left: 30%;
+}
+
+.buttonbar {
+    width: 70%;
 }
 }
 
@@ -179,6 +185,11 @@ hr {
     .container-right {
         column-count: 4;
 }
+
+.main-container-right {
+    margin-top: 10%;
+}
+
 .formname, 
 .formchecks {
     width: 20%;

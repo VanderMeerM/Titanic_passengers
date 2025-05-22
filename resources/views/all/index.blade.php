@@ -44,7 +44,7 @@
     </select>
 
 <select id='age_number' name='age_number'>
-  <option> Kies leeftijd</option>
+  <option> Leeftijd</option>
 
 @foreach ($all_ages as $age)
 
@@ -75,9 +75,9 @@ value={{$age['Age']}}>{{$age['Age']}}</option>
   @php 
   if ( is_null($gender_filtered) || 
   ($gender_filtered !=null) && (in_array($gender['Gender'], $gender_filtered))) { echo 'checked'; } 
-  @endphp   
-    
-  value= {{  $gender['Gender'] }} name= "gender[]" type="checkbox"/> 
+  @endphp  
+  
+    value= {{  $gender['Gender'] }} name= "gender[]" type="checkbox"/> 
   {{ \App\Models\Passenger::$gender_label[$gender["Gender"]] }}
 </div>
 
@@ -100,7 +100,7 @@ value={{$age['Age']}}>{{$age['Age']}}</option>
   if ( is_null($embarked_filtered) || 
   ($embarked_filtered !=null) && (in_array($bplace['Embarked'], $embarked_filtered))) { echo 'checked'; } 
   @endphp  
-   value= "{{ $bplace['Embarked'] === '' ? "Onbekend" : $bplace['Embarked'] }}" name="boarded[]" type="checkbox"/> 
+      value= "{{ $bplace['Embarked'] === '' ? "Onbekend" : $bplace['Embarked'] }}" name="boarded[]" type="checkbox"/> 
   {{ $bplace['Embarked'] === '' ? "Onbekend" : $bplace['Embarked'] }}
 </div>
 
@@ -121,8 +121,8 @@ value={{$age['Age']}}>{{$age['Age']}}</option>
   @php 
   if ( is_null($class_filtered) || 
   ($class_filtered !=null) && (in_array($class['Class'], $class_filtered))) { echo 'checked'; } 
-   @endphp 
-  value= "{{  $class['Class'] }}" name="class[]" name= {{ $class }} type="checkbox"/> {{ $class['Class'] }}
+   @endphp   
+     value= "{{  $class['Class'] }}" name="class[]" name= {{ $class }} type="checkbox"/> {{ $class['Class'] }}
 </div>
 
 @endforeach
@@ -136,12 +136,12 @@ value={{$age['Age']}}>{{$age['Age']}}</option>
 <br>
 
 <div class="flex items-stretch mb-2">
-<strong>Nationaliteit<br></strong><img id="show_hide" class="w-12 h-auto ml-2" src="../hide.png">
+<strong>Nationaliteit<br></strong><img id="show_hide" class="w-8 h-1/2 ml-2" src="../show.png">
 </div>
 
 <div id="show_hide_nat">
 
-<input id="cb_select_all" class="mb-3" checked type="checkbox"> <i>(De)selecteer alles </i>
+<input id="cb_select_all" class="mb-3 input_cb" checked type="checkbox"> <i>(De)selecteer alles </i>
 
 
 @foreach ($arr_nationalities_total as $key=>$value )
@@ -170,7 +170,7 @@ value={{$age['Age']}}>{{$age['Age']}}</option>
 <div>
 
 <script>
-  let eye = false;
+  let eye = true;
   const showHide = document.getElementById('show_hide');
   const showHideNat = document.getElementById('show_hide_nat');
 
@@ -178,9 +178,9 @@ value={{$age['Age']}}>{{$age['Age']}}</option>
       eye = !eye; 
       if (eye) {
         showHide.setAttribute('src', '../show.png');
-        showHideNat.style.display = 'none';
+        showHideNat.style.display = 'none'; 
       }
-      else {
+      else {        
         showHide.setAttribute('src', '../hide.png');
         showHideNat.style.display = 'block';
 
@@ -218,9 +218,9 @@ value={{$age['Age']}}>{{$age['Age']}}</option>
   @php 
   if (is_null($survived_filtered) || 
   ($survived_filtered !=null) && (in_array($status['Survived'], $survived_filtered))) { echo 'checked'; } 
-  @endphp   
+  @endphp  
 
-  value= {{ $status['Survived'] }} name="survvict[]" type="checkbox"/> 
+    value= {{ $status['Survived'] }} name="survvict[]" type="checkbox"/> 
   {{ \App\Models\Passenger::$status_label[$status['Survived']] }} 
    
 </div>
@@ -249,22 +249,25 @@ value={{$age['Age']}}>{{$age['Age']}}</option>
 <form method="GET" action = "{{ route('all.index') }}">
 @csrf
 
-<input class="input" type="text" name="name" placeholder="Voer naam in"
+<input class="input border border-[#9c200a]" type="text" name="name" placeholder="Voer naam in"
 value=" {{ request('name') }}" class="input h-10">
 
 <button id='btn-filter' type="submit" class='mt-2'>Zoek</button> 
 </form>
 </div>
-
 </div>
 
 <div class="main-container-right">
 
 <div class="flex items-baseline buttonbar">
 
-<div class="flex bar-top"> Aantal (obv filtering): {{ $passengers->count() }}
+<div class="flex bar-top font-bold"> Aantal (obv filtering): {{ $passengers->count() }}
 
 <div class="flex space-x-4">
+
+<div class="flex shrink-0 ml-8 items-center">
+          <img class="h-8 ml-4 w-auto" src="https://www.encyclopedia-titanica.org/images/svg/flag.svg" alt="Your Company">
+        </div>
 
 <a href="/all" {{ request()->path() === 'all' ? 'style=text-decoration-line:underline' : null }} >Alle opvarenden </a>
 <a href="/passengers" {{ request()->path() === 'passengers' ? 'style=text-decoration-line:underline' : null }} >Passagiers  </a>
