@@ -85,7 +85,7 @@ $classes_crew = array_slice($classes_crew, 6);
 
 @if (in_array( $passenger->Class, $classes_crew,)) 
 
-Was werkzaam in {{ $passenger->Class }}
+Was werkzaam in: {{ $passenger->Class }}
 <br>
 
 @else 

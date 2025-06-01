@@ -42,7 +42,7 @@ text-decoration: none;
     max-width: 230px;
     background-color: whitesmoke;
     padding-left: 10px;       
-    height: 1000vh;    
+   /* height: 1000vh; */
 }
 
 #input_name {
