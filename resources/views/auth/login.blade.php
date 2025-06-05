@@ -21,7 +21,7 @@
 
 </head>
 
-<body style="text-align: center; margin-top: 5%;">
+<body>
 
   <main class="form-signin w-50 m-auto">
 
@@ -29,7 +29,10 @@
   <form method="post" action="">
     @csrf
      
-    <h1 class="h3 mb-3 fw-normal" style="color:#900">Inlogpagina</h1>
+    <img id="flag" src="https://www.encyclopedia-titanica.org/images/svg/flag.svg">
+
+     
+    <h1 class="h3 mb-3 fw-normal" style="color:#9c200a">Inlogpagina</h1>
 
     <p></p>
 
@@ -53,11 +56,14 @@
  
   
     <button type="submit" class="w-50 mt-5 btn btn-lg btn-primary">Inloggen</button>
-   
-  </form>
+    </form>
+
+    <form action= "./all/{{ request()->get('pass_id') }}">
+          <button type="submit" class="w-50 mt-5 btn btn-lg btn-secondary">Vorige pagina</button>
+
+    </form>
 
 </main>
-
 
 </body>
 </html>

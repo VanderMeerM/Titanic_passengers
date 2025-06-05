@@ -52,8 +52,22 @@ class PassengerController extends Controller
         }
        }
      
-      // $arr_nationalities_total = array_combine($nationalities_keys, Passenger::$nationalities_translated);
        asort($arr_nationalities_total);
+
+       $class_keys= []; 
+       $arr_class_total = [];
+
+       foreach ($classes as $cl_keys) {
+        array_push($class_keys, $cl_keys['Class']);
+       } 
+
+       foreach($class_keys as $cl_keys) {
+        if (array_key_exists($cl_keys, Passenger::$class_translated)) {
+          $arr_class_total += [$cl_keys => Passenger::$class_translated[$cl_keys]];
+        }
+       }
+     
+       asort($arr_class_total);
       
        $passengers= Passenger::when(
             $name, 
@@ -87,6 +101,7 @@ class PassengerController extends Controller
         'embarked_filtered' => $boarded,
         'nationalities_filtered' => $nationality,
         'arr_nationalities_total' => $arr_nationalities_total,
+        'arr_class_total' => $arr_class_total,
         'survived_filtered' => $survived, 
         'curr_url' => $current_url,   
         'curr_url_2' => $second_cat
@@ -107,14 +122,6 @@ class PassengerController extends Controller
     }
 
   
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request)
-    {
-      
-    }
-
     public function store(Request $request)
     {
     
@@ -150,7 +157,7 @@ class PassengerController extends Controller
      $survived = $request->get('survvict');
 
      $nationalities_keys = []; 
-       $arr_nationalities_total = [];
+     $arr_nationalities_total = [];
 
        foreach ($nationalities as $nat_keys) {
         array_push($nationalities_keys, $nat_keys['Nationality']);
@@ -162,9 +169,22 @@ class PassengerController extends Controller
         }
        }
      
-      // $arr_nationalities_total = array_combine($nationalities_keys, Passenger::$nationalities_translated);
        asort($arr_nationalities_total);
 
+       $class_keys= []; 
+       $arr_class_total = [];
+
+       foreach ($classes as $cl_keys) {
+        array_push($class_keys, $cl_keys['Class']);
+       } 
+
+       foreach($class_keys as $cl_keys) {
+        if (array_key_exists($cl_keys, Passenger::$class_translated)) {
+          $arr_class_total += [$cl_keys => Passenger::$class_translated[$cl_keys]];
+        }
+       }
+     
+       asort($arr_class_total);
    
      $passengers= Passenger::when(
           $name, 
@@ -195,6 +215,7 @@ class PassengerController extends Controller
       'embarked_filtered' => $boarded,
       'nationalities_filtered' => $nationality,
       'arr_nationalities_total' => $arr_nationalities_total,
+      'arr_class_total' => $arr_class_total,
       'survived_filtered' => $survived, 
       'curr_url' => $current_url,   
       'curr_url_2' => $second_cat

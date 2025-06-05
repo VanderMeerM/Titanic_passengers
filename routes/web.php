@@ -10,10 +10,9 @@ Route::get('/', function () {
  return redirect()->route('all.index');
 });
 
-Route::get('/all', function() {
-  return redirect()->route('all.index');
-});
-Route::post('/all', action: [SessionController::class, 'store'])->name('all.index');
+Route::get('/all', [SessionController::class, 'index'])-> name('all.index');
+
+Route::post('/all', action: [SessionController::class, 'index'])->name('all.index');
 
 
 Route::get('/passengers', function () {

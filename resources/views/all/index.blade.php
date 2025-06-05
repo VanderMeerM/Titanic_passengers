@@ -93,15 +93,15 @@ value={{$age['Age']}}>{{$age['Age']}}</option>
 
 @foreach ($embarked as $bplace) 
 
-<div>
+<div {{ $bplace['Embarked'] === 'Unknown' ? "style=font-style:italic" : null }} >
   <input 
   
   @php 
   if ( is_null($embarked_filtered) || 
   ($embarked_filtered !=null) && (in_array($bplace['Embarked'], $embarked_filtered))) { echo 'checked'; } 
   @endphp  
-      value= "{{ $bplace['Embarked'] === '' ? "Onbekend" : $bplace['Embarked'] }}" name="boarded[]" type="checkbox"/> 
-  {{ $bplace['Embarked'] === '' ? "Onbekend" : $bplace['Embarked'] }}
+      value= "{{ $bplace['Embarked'] }}" name="boarded[]" type="checkbox"/> 
+  {{ $bplace['Embarked'] === 'Unknown' ? "onbekend" : $bplace['Embarked'] }}
 </div>
 
 @endforeach
@@ -112,17 +112,35 @@ value={{$age['Age']}}>{{$age['Age']}}</option>
 <br>
 
 <div>
-<strong>Klasse<br></strong>
 
-@foreach ($classes as $class)
+@php 
+switch (request()->path()) {
 
-<div>
+case 'passengers':
+$class_title = 'Klasse';
+break;
+
+case 'crew':
+$class_title = 'Werkzaam';
+break;
+
+default:
+$class_title = 'Klasse / werkzaam';
+}
+@endphp
+
+<strong> {{ $class_title }}<br></strong>
+
+@foreach ($arr_class_total as $key=>$value)
+
+<div {{ $key === 'Unknown' ? "style=font-style:italic" : null }} >
   <input 
   @php 
   if ( is_null($class_filtered) || 
-  ($class_filtered !=null) && (in_array($class['Class'], $class_filtered))) { echo 'checked'; } 
+  ($class_filtered !=null) && (in_array($key, $class_filtered))) { echo 'checked'; } 
    @endphp   
-     value= "{{  $class['Class'] }}" name="class[]" name= {{ $class }} type="checkbox"/> {{ $class['Class'] }}
+     value= "{{ $key }}" name="class[]" type="checkbox"/> 
+     {{ (array_key_exists($key, $arr_class_total) ? $value : $key) }}
 </div>
 
 @endforeach
@@ -146,7 +164,7 @@ value={{$age['Age']}}>{{$age['Age']}}</option>
 
 @foreach ($arr_nationalities_total as $key=>$value )
 
-<div>
+<div {{ $key === "Unknown" ? "style=font-style:italic" : null }}>
   <input 
   
   @php
@@ -212,7 +230,7 @@ value={{$age['Age']}}>{{$age['Age']}}</option>
 
 @foreach ($statuses as $status) 
 
-<div>
+<div {{ $status['Survived'] === "Unknown" ? "style=font-style:italic" : null }}>
   <input 
   
   @php 

@@ -3,7 +3,6 @@
 
 @guest
 
-
 <form action=" {{  route('auth.login') }}" method="get">
  @csrf
 
@@ -15,18 +14,7 @@
 </button>
 </div>
 
-
-
 @endguest
-
-{{ $passenger->Id }}
-
-<div class="container_detail">
-
-<a href=" {{ route('all.index') }}"
-        id="name_detail">← Terug naar overzicht van passagiers</a>
-
-<p> 
 
 @auth
 
@@ -37,6 +25,17 @@
 </form>
 
 @endauth
+
+{{ $passenger->Id }}
+
+<div class="container_detail">
+
+<a href=" {{ route('all.index') }}"
+        id="name_detail">← Terug naar totaaloverzicht</a>
+
+<p> 
+
+
 
 
   @php $classes_crew = [];
@@ -85,8 +84,11 @@ $classes_crew = array_slice($classes_crew, 6);
 
 @if (in_array( $passenger->Class, $classes_crew,)) 
 
-Was werkzaam in: {{ $passenger->Class }}
-<br>
+Werkzaam in/op: 
+<span {{ $passenger->Class === "Unknown" ? "style=font-style:italic" : null }}>
+{{ \App\Models\Passenger::$class_translated[$passenger->Class] }} 
+
+</span>
 
 @else 
 
@@ -95,25 +97,39 @@ Voer mee in de {{ $passenger->Class[0] }}e klasse.
 @endif
 @endif
 
+<div>
+
 @if ($passenger->Embarked != '')
-Opgestapt in: {{$passenger->Embarked}}
-<br>
+Opgestapt in: 
+<span {{ $passenger->Embarked === "Unknown" ? "style=font-style:italic" : null }}>
+    {{ $passenger->Embarked === "Unknown" ? "onbekend" : $passenger->Embarked }} 
+</span> 
 @endif
 
+</div>
+
+<div>
 @if ($passenger->Nationality != '')
-Nationaliteit: {{  \App\Models\Passenger::$nationalities_translated[$passenger->Nationality] }}
-<br>
-@endif
+Nationaliteit: 
+<span {{ $passenger->Nationality === "Unknown" ? "style=font-style:italic" : null }}>
+    {{ \App\Models\Passenger::$nationalities_translated[$passenger->Nationality] }} 
+</span> 
+@endif 
+</div>
 
+<div>
 @if ($passenger->Job != '')
-Werkte als: {{  $passenger->Job }}
-<br>
+Functie: 
+ {{ array_key_exists($passenger->Job, \App\Models\Passenger::$jobs_translated) ? 
+\App\Models\Passenger::$jobs_translated[$passenger->Job] : $passenger->Job }}
 @endif
+ </div>
 
+ <div>
 @if ($passenger->Boat != '')
 Zat in reddingsboot: {{ $passenger->Boat}}
-<br>
 @endif
+ </div>
 
 <p>
 

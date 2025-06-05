@@ -63,7 +63,7 @@ display: none;
 
 .main-container-right {
      flex: 80%;    
-     margin-top: 5%;
+     margin: 5% 1% 0 3%;
 }
 
 
