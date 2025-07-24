@@ -114,10 +114,10 @@ class PassengerController extends Controller
      */
     public static function show(Passenger $all)
     {
-               return view('all.show', 
-               ['passenger' => $all, 
-               'classes' => Passenger::select('Class')->whereNot('Class', '')->distinct()->orderBy('Class', 'ASC')->get()
-                ]);
+        return view('all.show', 
+        ['passenger' => $all, 
+        'classes' => Passenger::select('Class')->whereNot('Class', '')->distinct()->orderBy('Class', 'ASC')->get()
+        ]);
 
     }
 
