@@ -18,11 +18,14 @@ class UserController extends Controller
         ]);
               
     }
+
+    /*
     public function update()
     {
         $user = User::find(1); 
          
         $user->fill(['password' => Hash::make("oC9em7Wce0")])->save(); 
 
-    }
+    } 
+        */
 }

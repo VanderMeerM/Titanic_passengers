@@ -10,8 +10,8 @@
  
 <input type="hidden" name="pass_id" value="{{  $passenger->Id }}">
 
-<button type="submit"> <img class='loginout' src="../login.png">
-</button>
+<button type="submit"> <img class='loginout' src="../login.png"></button>
+
 </div>
 
 @endguest
@@ -20,8 +20,8 @@
 
 <form method="post" action="../logout">
  @csrf
-<button type="submit"> <img class='loginout' src="../logout.png"> 
-</button>
+<button type="submit"> <img class='loginout' src="../logout.png"></button>
+
 </form>
 
 @endauth

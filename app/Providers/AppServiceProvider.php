@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
           
         });
 
-        URL::forceHttps(app()->isProduction()); 
+      //  URL::forceHttps(app()->isProduction()); 
 
     }
 }

@@ -12,7 +12,7 @@ class Passenger extends Model
 
     use HasFactory;
 
-    protected $table = 'passengers';
+    protected $table = 'Titanic_Passengers';
 
     public const NAME = 'Name';
     public const AGE = 'Age';
@@ -34,7 +34,6 @@ public function scopeName(Builder $query, string $name ): Builder
 {
     return $query
     ->where('Name', 'LIKE', '%' . $name . '%');
-    //->orWhere('Surname', 'LIKE', '%' . $name . '%');
 } 
 
 public static function get_url(Request $request) {
