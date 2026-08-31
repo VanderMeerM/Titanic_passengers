@@ -33,7 +33,7 @@ color: #9c200a;
 text-decoration: none;
 }
 
-.container {
+.main_container {
     display: flex;
 }
 
@@ -68,8 +68,10 @@ display: none;
 
 
 .container-right {
-    column-count: 5;
+    /*column-count: 5; */
     min-height: 800px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       
 }
 
@@ -112,6 +114,7 @@ hr {
  {
     padding: 5px;
     color: var(--lightgreen);
+    display: flex;
     font-weight: bolder;
     text-decoration: none;
 }
@@ -139,9 +142,8 @@ hr {
 
 #btn-filter, 
 #btn-filter_red {
-    background-color: darkblue;
+    background-color: #9c200a;
     padding: 10px;
-    border-radius: 25px;
     color: white;
 }
 
@@ -181,23 +183,11 @@ hr {
 }
 }
 
-@media (max-width: 1045px) {
-    .container-right {
-        column-count: 4;
-}
 
-.main-container-right {
-    margin-top: 10%;
-}
-
-.formname, 
-.formchecks {
-    width: 20%;
-}
 .select {
     display: block;
 }
-}
+
 
 @media (max-width: 900px) {
 .formchecks {
@@ -205,11 +195,6 @@ hr {
 }
 }
 
-@media (max-width: 800px) {
-    .container-right {
-        column-count: 3;
-}
-}
 
 @media (max-width: 650px) {
     .formchecks, .formname {
@@ -226,9 +211,7 @@ hr {
  }
 
 @media (max-width: 500px) {
-    .container-right {
-        column-count: 2;
-}
+ 
     #input_name {
         width: 80px;
     }

@@ -5,7 +5,7 @@
 
 <body> 
 
-<div class="container">
+<div class="main_container">
 
 <div class="container-left">
 
@@ -18,7 +18,7 @@
 @php $sel_cat = explode('/', $_SERVER["REQUEST_URI"])[1];
 @endphp
 
-<form action= {{ route(explode('?', $sel_cat)[0]. '.index') }} method= 'post'> <!-- action = {{ route('passengers.index') }} --> 
+<form action= {{ route(explode('?', $sel_cat)[0]. '.index') }} method= 'post'>  
  @csrf
 
  <div>
@@ -264,8 +264,9 @@ $class_title = 'Klasse / werkzaam';
 
 <strong>Zoek op een naam<p></strong>
 
-<form method="GET" action = "{{ route('all.index') }}">
+<form method="GET" action = "{{ route(explode('?', $sel_cat)[0]. '.index') }}">
 @csrf
+
 
 <input class="input border border-[#9c200a]" type="text" name="name" placeholder="Voer naam in"
 value=" {{ request('name') }}" class="input h-10">

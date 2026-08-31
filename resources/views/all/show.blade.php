@@ -30,6 +30,7 @@
 
 <div class="container_detail">
 
+
 <a href=" {{ route('all.index') }}"
         id="name_detail">← Terug naar totaaloverzicht</a>
 

@@ -10,19 +10,16 @@ Route::get('/', function () {
  return redirect()->route('all.index');
 });
 
-Route::get('/all', [SessionController::class, 'index'])-> name('all.index');
+//Route::get('/all', [SessionController::class, 'index'])-> name('all.index');
 
-Route::post('/all', action: [SessionController::class, 'store'])->name('all.index');
-
+//Route::post('/all', [SessionController::class, 'store'])->name('all.index');
 
 Route::get('/passengers', function () {
-  return redirect()->route('all.index')
-  ->name('passengers.index');
+  return redirect()->route('all.index') ->name('passengers.index');
 });
 
 Route::get('/crew', function () {
-  return redirect()->route('all.index')
-  -> name('crew.index');
+  return redirect()->route('all.index')-> name('crew.index');
  });
 
 
@@ -43,7 +40,6 @@ Route::resource('crew', PassengerController::class)
 Route::post('upload', [FileUploadController::class, 'store'])->name('file.store');
 
 Route::get('update_show', [UserController::class, 'show'])-> name('user.show');
-//Route::post('update_user', [UserController::class, 'update'])-> name('user.update');
 
   
     
