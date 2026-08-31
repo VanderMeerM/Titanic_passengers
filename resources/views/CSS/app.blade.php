@@ -174,9 +174,6 @@ hr {
 
 
 @media (max-width: 1280px) {
-.main-container-right {
-    margin-left: 30%;
-}
 
 .buttonbar {
     width: 70%;
